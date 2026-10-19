@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#071426">
+  <meta name="description" content="Proyecto conmemorativo del 55.º aniversario del CBTis No. 4: ciencia, historia y relojes solares horizontales.">
+  <title>Reloj Solar | CBTis No. 4</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="encabezado">
+    <a class="logo" href="#inicio">☼ CBTis No. 4</a>
+    <nav aria-label="Navegación principal">
+      <a href="#historia">Historia</a>
+      <a href="#ciencia">La ciencia</a>
+      <a href="#simulador">Simulador</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <p class="etiqueta">55.º ANIVERSARIO · CIENCIA Y TECNOLOGÍA</p>
+      <h1>El tiempo escrito<br>con la luz del Sol</h1>
+      <p class="intro">
+        Descubre cómo la posición del Sol y la sombra de un gnomon
+        permiten medir el tiempo con un reloj solar horizontal.
+      </p>
+      <a class="boton" href="#simulador">Explorar el simulador ↗</a>
+      <div class="sol" aria-hidden="true">☼</div>
+      <p class="nota">ASTRONOMÍA · HISTORIA · MATEMÁTICAS</p>
+    </section>
+
+    <section class="seccion" id="historia">
+      <p class="etiqueta">01 — UN INSTRUMENTO MILENARIO</p>
+      <h2>Antes de los relojes modernos</h2>
+      <p>
+        Los relojes solares utilizan la sombra proyectada por una pieza
+        llamada <strong>gnomon</strong>. Su posición cambia a medida
+        que la Tierra gira y el Sol parece recorrer el cielo.
+      </p>
+    </section>
+
+    <section class="seccion ciencia" id="ciencia">
+      <p class="etiqueta">02 — LA CIENCIA</p>
+      <h2>Geometría que mide el tiempo</h2>
+      <div class="tarjetas">
+        <article class="tarjeta">
+          <span>☀</span>
+          <h3>El Sol</h3>
+          <p>Su movimiento aparente produce cambios en la dirección de la sombra.</p>
+        </article>
+        <article class="tarjeta">
+          <span>△</span>
+          <h3>El gnomon</h3>
+          <p>Una varilla inclinada hacia el polo celeste proyecta la sombra sobre el plano.</p>
+        </article>
+        <article class="tarjeta">
+          <span>◷</span>
+          <h3>Las líneas horarias</h3>
+          <p>La geometría del reloj permite interpretar la hora solar local.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="seccion" id="simulador">
+      <p class="etiqueta">03 — EXPERIMENTA</p>
+      <h2>Simulador de hora solar</h2>
+      <p>Selecciona una hora para observar una representación ilustrativa de la sombra.</p>
+      <div class="simulador">
+        <label for="hora">Hora solar de ejemplo</label>
+        <input id="hora" type="range" min="6" max="18" value="12" step="1">
+        <p>Hora seleccionada: <strong id="valor-hora">12:00</strong></p>
+        <div class="reloj" aria-label="Representación ilustrativa de un reloj solar">
+          <div class="gnomon"></div>
+          <div class="sombra" id="sombra"></div>
+          <span class="marca m6">6</span>
+          <span class="marca m9">9</span>
+          <span class="marca m12">12</span>
+          <span class="marca m15">15</span>
+          <span class="marca m18">18</span>
+        </div>
+        <p class="nota">Modelo visual didáctico, no instrumento de precisión.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Proyecto educativo · 55.º aniversario del CBTis No. 4</p>
+    <p>El universo también puede leerse a través de una sombra.</p>
+  </footer>
+</body>
+</html>
