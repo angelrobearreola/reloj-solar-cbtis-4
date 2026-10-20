@@ -1,257 +1,149 @@
-/* =========================================
-   RELOJ SOLAR CBTis No. 4
-   JavaScript nativo, sin dependencias
-   ========================================= */
 
-document.addEventListener("DOMContentLoaded", () => {
-  "use strict";
+"use strict";
 
-  // 1. ELEMENTOS DEL SIMULADOR
-  const controlHora = document.getElementById("hora");
-  const valorHora = document.getElementById("valor-hora");
-  const sombra = document.getElementById("sombra");
-  const reloj = document.querySelector(".reloj");
-  const gnomon = document.querySelector(".gnomon");
+// Menú de navegación para celulares
+const menuToggle = document.getElementById("menuToggle");
+const navLinks = document.getElementById("navLinks");
 
-  // 2. SIMULADOR DE HORA SOLAR
-  function actualizarSimulador() {
-    if (!controlHora || !valorHora || !sombra) return;
+if (menuToggle && navLinks) {
+  menuToggle.addEventListener("click", () => {
+    const isOpen = navLinks.classList.toggle("open");
 
-    const hora = Number(controlHora.value);
-    if (!Number.isFinite(hora)) return;
-
-    const horas = Math.floor(hora);
-    const minutos = Math.round((hora - horas) * 60);
-
-    const horaFormateada =
-      String(horas).padStart(2, "0") +
-      ":" +
-      String(minutos).padStart(2, "0");
-
-    valorHora.textContent = horaFormateada;
-
-    // Modelo visual ilustrativo, no astronómico.
-    const desviacion = hora - 12;
-    const angulo = desviacion * 15;
-    const distanciaMediodia = Math.abs(desviacion);
-    const longitud = 12 + distanciaMediodia * 3;
-
-    sombra.style.height = `${Math.min(longitud, 34)}%`;
-    sombra.style.transform =
-      `translate(-50%, 0) rotate(${angulo}deg)`;
-
-    sombra.setAttribute(
+    menuToggle.setAttribute("aria-expanded", String(isOpen));
+    menuToggle.setAttribute(
       "aria-label",
-      `Sombra ilustrativa a las ${horaFormateada}`
+      isOpen ? "Cerrar menú" : "Abrir menú"
+    );
+    menuToggle.textContent = isOpen ? "✕" : "☰";
+  });
+
+  navLinks.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      navLinks.classList.remove("open");
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.setAttribute("aria-label", "Abrir menú");
+      menuToggle.textContent = "☰";
+    });
+  });
+}
+
+// Año automático en el pie de página
+const yearElement = document.getElementById("year");
+
+if (yearElement) {
+  yearElement.textContent = new Date().getFullYear();
+}
+
+// Colocar la fecha actual como fecha inicial
+const dateInput = document.getElementById("solarDate");
+
+if (dateInput) {
+  const now = new Date();
+  const localDate = [
+    now.getFullYear(),
+    String(now.getMonth() + 1).padStart(2, "0"),
+    String(now.getDate()).padStart(2, "0")
+  ].join("-");
+
+  dateInput.value = localDate;
+}
+
+// Calculadora educativa de tiempo solar
+const solarForm = document.getElementById("solarForm");
+const solarResult = document.getElementById("solarResult");
+
+function calcularEcuacionDelTiempo(date) {
+  const startOfYear = new Date(date.getFullYear(), 0, 0);
+  const dayNumber = Math.floor(
+    (date - startOfYear) / (24 * 60 * 60 * 1000)
+  );
+
+  const B = (2 * Math.PI * (dayNumber - 81)) / 364;
+
+  // Aproximación de la ecuación del tiempo, en minutos
+  return (
+    9.87 * Math.sin(2 * B) -
+    7.53 * Math.cos(B) -
+    1.5 * Math.sin(B)
+  );
+}
+
+function formatearHora(totalMinutos) {
+  const minutesInDay = 24 * 60;
+
+  // Mantener la hora dentro del rango de un día
+  const normalized = ((totalMinutos % minutesInDay) + minutesInDay)
+    % minutesInDay;
+
+  const hours = Math.floor(normalized / 60);
+  const minutes = Math.floor(normalized % 60);
+
+  return (
+    String(hours).padStart(2, "0") +
+    ":" +
+    String(minutes).padStart(2, "0")
+  );
+}
+
+if (solarForm && solarResult) {
+  solarForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const timeValue = document.getElementById("civilTime").value;
+    const dateValue = document.getElementById("solarDate").value;
+    const longitude = Number(
+      document.getElementById("longitude").value
+    );
+    const meridian = Number(
+      document.getElementById("meridian").value
     );
 
-    controlHora.setAttribute("aria-valuetext", horaFormateada);
-
-    if (reloj) {
-      reloj.setAttribute(
-        "aria-label",
-        `Simulador ilustrativo. Hora: ${horaFormateada}`
-      );
+    if (
+      !timeValue ||
+      !dateValue ||
+      !Number.isFinite(longitude) ||
+      !Number.isFinite(meridian) ||
+      longitude < -180 ||
+      longitude > 180 ||
+      meridian < -180 ||
+      meridian > 180
+    ) {
+      solarResult.textContent =
+        "Revisa la fecha, la hora y las longitudes ingresadas.";
+      return;
     }
 
-    if (gnomon) {
-      gnomon.setAttribute(
-        "aria-label",
-        "Gnomon del reloj solar"
-      );
+    const [hours, minutes] = timeValue.split(":").map(Number);
+    const civilMinutes = hours * 60 + minutes;
+
+    // Crear una fecha local para obtener el día del año
+    const [year, month, day] = dateValue.split("-").map(Number);
+    const selectedDate = new Date(year, month - 1, day, 12);
+
+    // Corrección geográfica en minutos.
+    // Longitudes al este son positivas; al oeste, negativas.
+    const longitudeCorrection = 4 * (longitude - meridian);
+
+    const equationOfTime = calcularEcuacionDelTiempo(selectedDate);
+
+    const totalCorrection =
+      longitudeCorrection + equationOfTime;
+
+    const solarMeanMinutes = civilMinutes + longitudeCorrection;
+    const apparentSolarMinutes =
+      civilMinutes + totalCorrection;
+
+    const sign = totalCorrection >= 0 ? "+" : "−";
+
+    solarResult.textContent =
+      "Hora solar media aproximada: " +
+      formatearHora(solarMeanMinutes) +
+      ". Hora solar aparente aproximada: " +
+      formatearHora(apparentSolarMinutes) +
+      ". Corrección total estimada: " +
+      sign +
+      Math.abs(totalCorrection).toFixed(1) +
+      " minutos respecto de la hora civil ingresada.";
+  });
     }
-  }
-
-  if (controlHora) {
-    controlHora.addEventListener("input", actualizarSimulador);
-    controlHora.addEventListener("change", actualizarSimulador);
-  }
-
-  actualizarSimulador();
-
-  // 3. NAVEGACIÓN SUAVE
-  const enlacesNavegacion = document.querySelectorAll(
-    '.encabezado nav a[href^="#"], a.boton[href^="#"]'
-  );
-
-  enlacesNavegacion.forEach((enlace) => {
-    enlace.addEventListener("click", (evento) => {
-      const destinoId = enlace.getAttribute("href");
-      if (!destinoId || destinoId === "#") return;
-
-      const destino = document.querySelector(destinoId);
-      if (!destino) return;
-
-      evento.preventDefault();
-
-      destino.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-
-      if (window.history && window.history.replaceState) {
-        window.history.replaceState(null, "", destinoId);
-      }
-    });
-  });
-
-  // 4. RESALTAR LA SECCIÓN ACTUAL EN EL MENÚ
-  const secciones = document.querySelectorAll(
-    "#inicio, #historia, #ciencia, #simulador"
-  );
-
-  const enlacesPorDestino = new Map();
-
-  enlacesNavegacion.forEach((enlace) => {
-    const destino = enlace.getAttribute("href");
-
-    if (destino && destino.startsWith("#")) {
-      enlacesPorDestino.set(destino.slice(1), enlace);
-    }
-  });
-
-  if ("IntersectionObserver" in window && secciones.length > 0) {
-    const observadorSecciones = new IntersectionObserver(
-      (entradas) => {
-        entradas.forEach((entrada) => {
-          if (!entrada.isIntersecting) return;
-
-          enlacesPorDestino.forEach((enlace) => {
-            enlace.classList.remove("activo");
-            enlace.removeAttribute("aria-current");
-          });
-
-          const enlaceActual = enlacesPorDestino.get(
-            entrada.target.id
-          );
-
-          if (enlaceActual) {
-            enlaceActual.classList.add("activo");
-            enlaceActual.setAttribute("aria-current", "location");
-          }
-        });
-      },
-      {
-        rootMargin: "-25% 0px -60% 0px",
-        threshold: 0
-      }
-    );
-
-    secciones.forEach((seccion) => {
-      observadorSecciones.observe(seccion);
-    });
-  }
-
-  // 5. ANIMACIONES DE APARICIÓN
-  const elementosAnimados = document.querySelectorAll(
-    ".seccion, .tarjeta"
-  );
-
-  const movimientoReducido = window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
-  ).matches;
-
-  if (
-    !movimientoReducido &&
-    "IntersectionObserver" in window
-  ) {
-    elementosAnimados.forEach((elemento) => {
-      elemento.classList.add("revelar-pendiente");
-    });
-
-    const observadorAnimaciones = new IntersectionObserver(
-      (entradas, observador) => {
-        entradas.forEach((entrada) => {
-          if (!entrada.isIntersecting) return;
-
-          entrada.target.classList.add("visible");
-          entrada.target.classList.remove("revelar-pendiente");
-          observador.unobserve(entrada.target);
-        });
-      },
-      { threshold: 0.12 }
-    );
-
-    elementosAnimados.forEach((elemento) => {
-      observadorAnimaciones.observe(elemento);
-    });
-  } else {
-    elementosAnimados.forEach((elemento) => {
-      elemento.classList.add("visible");
-    });
-  }
-
-  // 6. BOTONES CON ATRIBUTO data-destino
-  document.querySelectorAll("[data-destino]").forEach((boton) => {
-    boton.addEventListener("click", () => {
-      const idDestino = boton.dataset.destino;
-      const destino = idDestino
-        ? document.getElementById(idDestino)
-        : null;
-
-      if (destino) {
-        destino.scrollIntoView({
-          behavior: movimientoReducido ? "auto" : "smooth",
-          block: "start"
-        });
-      }
-    });
-  });
-
-  // 7. PREGUNTAS FRECUENTES
-  const preguntas = document.querySelectorAll(
-    ".pregunta-frecuente details, .faq details"
-  );
-
-  preguntas.forEach((pregunta) => {
-    pregunta.addEventListener("toggle", () => {
-      if (!pregunta.open) return;
-
-      preguntas.forEach((otraPregunta) => {
-        if (
-          otraPregunta !== pregunta &&
-          otraPregunta.parentElement === pregunta.parentElement
-        ) {
-          otraPregunta.open = false;
-        }
-      });
-    });
-  });
-
-  // 8. AÑO AUTOMÁTICO
-  document.querySelectorAll(
-    "#anio-actual, [data-anio-actual]"
-  ).forEach((elemento) => {
-    elemento.textContent = String(new Date().getFullYear());
-  });
-
-  // 9. BOTÓN PARA VOLVER ARRIBA
-  const botonArriba = document.querySelector(
-    "#volver-arriba, .volver-arriba"
-  );
-
-  if (botonArriba) {
-    const actualizarBotonArriba = () => {
-      botonArriba.hidden = window.scrollY < 350;
-    };
-
-    window.addEventListener(
-      "scroll",
-      actualizarBotonArriba,
-      { passive: true }
-    );
-
-    actualizarBotonArriba();
-
-    botonArriba.addEventListener("click", () => {
-      window.scrollTo({
-        top: 0,
-        behavior: movimientoReducido ? "auto" : "smooth"
-      });
-    });
-  }
-
-  console.info(
-    "Reloj Solar CBTis No. 4: JavaScript cargado correctamente."
-  );
-});
+     
