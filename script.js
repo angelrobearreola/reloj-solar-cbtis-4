@@ -1,37 +1,30 @@
-// =====================================================
-// RELOJ SOLAR HORIZONTAL · CBTis No. 4
-// Interactividad del sitio web
-// JavaScript nativo · Sin dependencias externas
-// =====================================================
-
 "use strict";
 
 document.addEventListener("DOMContentLoaded", () => {
-
-  // ---------------------------------------------------
-  // 1. MENÚ DE NAVEGACIÓN PARA MÓVILES
-  // ---------------------------------------------------
+  // =====================================================
+  // 1. MENÚ RESPONSIVE
+  // =====================================================
 
   const botonMenu = document.getElementById("menu-toggle");
   const navegacion = document.getElementById("navegacion");
 
   if (botonMenu && navegacion) {
-    const cerrarMenu = () => {
+    function cerrarMenu() {
       navegacion.classList.remove("abierto");
       botonMenu.setAttribute("aria-expanded", "false");
       botonMenu.setAttribute("aria-label", "Abrir menú");
       botonMenu.textContent = "☰";
-    };
+    }
 
     botonMenu.addEventListener("click", () => {
-      const estaAbierto = navegacion.classList.toggle("abierto");
+      const abierto = navegacion.classList.toggle("abierto");
 
-      botonMenu.setAttribute("aria-expanded", String(estaAbierto));
+      botonMenu.setAttribute("aria-expanded", String(abierto));
       botonMenu.setAttribute(
         "aria-label",
-        estaAbierto ? "Cerrar menú" : "Abrir menú"
+        abierto ? "Cerrar menú" : "Abrir menú"
       );
-      botonMenu.textContent = estaAbierto ? "✕" : "☰";
+      botonMenu.textContent = abierto ? "✕" : "☰";
     });
 
     navegacion.querySelectorAll("a").forEach((enlace) => {
@@ -39,142 +32,161 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.addEventListener("keydown", (evento) => {
-      if (evento.key === "Escape") {
-        cerrarMenu();
-      }
+      if (evento.key === "Escape") cerrarMenu();
     });
 
     window.addEventListener("resize", () => {
-      if (window.innerWidth > 780) {
-        cerrarMenu();
-      }
+      if (window.innerWidth > 780) cerrarMenu();
     });
   }
 
-  // ---------------------------------------------------
+  // =====================================================
   // 2. SIMULADOR DEL RELOJ SOLAR
-  // ---------------------------------------------------
+  // =====================================================
 
   const controlHora = document.getElementById("control-hora");
   const textoHora = document.getElementById("hora-texto");
-  const sombra = document.getElementById("sombra-svg");
-  const gnomon = document.getElementById("gnomon-svg");
-  const botonReiniciar = document.getElementById("reiniciar-hora");
+  const sombra = document.getElementById("sombra-simulada");
+  const marcas = document.getElementById("marcas-reloj");
+  const etiquetas = document.getElementById("etiquetas-reloj");
+  const reiniciar = document.getElementById("reiniciar-hora");
 
-  const CENTRO_X = 200;
-  const CENTRO_Y = 200;
+  const SVG_NS = "http://www.w3.org/2000/svg";
+  const CX = 200;
+  const CY = 200;
 
-  if (controlHora && textoHora && sombra && gnomon) {
+  function crearElementoSVG(nombre, atributos) {
+    const elemento = document.createElementNS(SVG_NS, nombre);
 
-    /**
-     * Convierte una hora decimal a formato HH:MM.
-     */
-    function formatearHora(horaDecimal) {
-      const horas = Math.floor(horaDecimal);
-      const minutos = Math.round((horaDecimal - horas) * 60);
+    Object.entries(atributos).forEach(([clave, valor]) => {
+      elemento.setAttribute(clave, String(valor));
+    });
 
-      const horaAjustada = minutos === 60 ? horas + 1 : horas;
-      const minutosAjustados = minutos === 60 ? 0 : minutos;
-
-      return (
-        String(horaAjustada).padStart(2, "0") +
-        ":" +
-        String(minutosAjustados).padStart(2, "0")
-      );
-    }
-
-    /**
-     * Actualiza la representación gráfica.
-     *
-     * Este modelo ilustra el cambio de dirección de la sombra.
-     * No calcula la posición astronómica real del Sol.
-     */
-    function actualizarSimulacion() {
-      const hora = Number(controlHora.value);
-
-      textoHora.textContent = formatearHora(hora);
-
-      /*
-       * El ángulo se define de manera didáctica:
-       * mañana: sombra hacia un lado;
-       * mediodía: sombra más corta;
-       * tarde: sombra hacia el lado opuesto.
-       */
-      const desplazamiento = hora - 12;
-      const angulo = desplazamiento * 15;
-
-      /*
-       * La longitud aumenta al alejarse de las 12:00.
-       * Es una relación visual simplificada, no una
-       * predicción de la longitud real de la sombra.
-       */
-      const distancia = 45 + Math.abs(desplazamiento) * 7;
-
-      const radianes = (angulo * Math.PI) / 180;
-
-      const finalX =
-        CENTRO_X + Math.sin(radianes) * distancia;
-
-      const finalY =
-        CENTRO_Y - Math.cos(radianes) * distancia;
-
-      /*
-       * Actualizar sombra.
-       */
-      sombra.setAttribute(
-        "d",
-        `M ${CENTRO_X} ${CENTRO_Y} L ${finalX} ${finalY}`
-      );
-
-      /*
-       * El gnomon permanece fijo en este modelo.
-       */
-      gnomon.setAttribute(
-        "d",
-        `M ${CENTRO_X} ${CENTRO_Y} L ${CENTRO_X} ${CENTRO_Y - 55}`
-      );
-
-      /*
-       * Cambiar la apariencia de la sombra según la hora.
-       */
-      const opacidad = Math.max(
-        0.35,
-        0.9 - Math.abs(desplazamiento) * 0.035
-      );
-
-      sombra.setAttribute("opacity", String(opacidad));
-    }
-
-    controlHora.addEventListener("input", actualizarSimulacion);
-
-    if (botonReiniciar) {
-      botonReiniciar.addEventListener("click", () => {
-        controlHora.value = "12";
-        actualizarSimulacion();
-      });
-    }
-
-    actualizarSimulacion();
+    return elemento;
   }
 
-  // ---------------------------------------------------
+  // Crear marcas horarias alrededor de la esfera.
+  if (marcas && etiquetas) {
+    for (let hora = 0; hora < 24; hora++) {
+      const angulo = (hora * 15 - 90) * Math.PI / 180;
+      const esHoraPrincipal = hora % 3 === 0;
+
+      const radioExterior = 157;
+      const radioInterior = esHoraPrincipal ? 140 : 148;
+
+      const x1 = CX + Math.cos(angulo) * radioInterior;
+      const y1 = CY + Math.sin(angulo) * radioInterior;
+      const x2 = CX + Math.cos(angulo) * radioExterior;
+      const y2 = CY + Math.sin(angulo) * radioExterior;
+
+      marcas.appendChild(
+        crearElementoSVG("line", {
+          x1, y1, x2, y2,
+          stroke: esHoraPrincipal ? "#e5c780" : "#68819a",
+          "stroke-width": esHoraPrincipal ? 2 : 1,
+          opacity: esHoraPrincipal ? 1 : 0.65
+        })
+      );
+
+      if (hora % 3 === 0) {
+        const radioTexto = 124;
+        const tx = CX + Math.cos(angulo) * radioTexto;
+        const ty = CY + Math.sin(angulo) * radioTexto + 4;
+
+        const texto = crearElementoSVG("text", {
+          x: tx,
+          y: ty,
+          fill: "#e4d5b4",
+          "font-size": 11,
+          "text-anchor": "middle"
+        });
+
+        texto.textContent = String(hora).padStart(2, "0");
+        etiquetas.appendChild(texto);
+      }
+    }
+  }
+
+  function formatoHora(valor) {
+    let horas = Math.floor(valor);
+    let minutos = Math.round((valor - horas) * 60);
+
+    if (minutos >= 60) {
+      horas++;
+      minutos = 0;
+    }
+
+    return (
+      String(horas).padStart(2, "0") +
+      ":" +
+      String(minutos).padStart(2, "0")
+    );
+  }
+
+  function actualizarSimulador() {
+    if (!controlHora || !textoHora || !sombra) return;
+
+    const hora = Number(controlHora.value);
+    textoHora.textContent = formatoHora(hora);
+
+    // Modelo ilustrativo: cambia la dirección y la longitud
+    // de la sombra según la hora seleccionada.
+    const desplazamiento = hora - 12;
+    const angulo = (desplazamiento * 15 - 90) * Math.PI / 180;
+    const distancia = 48 + Math.abs(desplazamiento) * 5;
+
+    const finalX = CX + Math.cos(angulo) * distancia;
+    const finalY = CY + Math.sin(angulo) * distancia;
+
+    sombra.setAttribute(
+      "d",
+      `M ${CX} ${CY} L ${finalX} ${finalY}`
+    );
+
+    sombra.setAttribute(
+      "opacity",
+      String(Math.max(0.35, 0.95 - Math.abs(desplazamiento) * 0.045))
+    );
+
+    sombra.setAttribute(
+      "stroke-width",
+      String(Math.max(4, 10 - Math.abs(desplazamiento) * 0.25))
+    );
+  }
+
+  if (controlHora) {
+    controlHora.addEventListener("input", actualizarSimulador);
+    actualizarSimulador();
+  }
+
+  if (reiniciar && controlHora) {
+    reiniciar.addEventListener("click", () => {
+      controlHora.value = "12";
+      actualizarSimulador();
+    });
+  }
+
+  // =====================================================
   // 3. BUSCADOR DEL GLOSARIO
-  // ---------------------------------------------------
+  // =====================================================
 
   const buscador = document.getElementById("buscar-concepto");
   const listaGlosario = document.getElementById("glosario-lista");
+  const mensajeVacio = document.getElementById(
+    "mensaje-sin-resultados"
+  );
 
-  if (buscador && listaGlosario) {
+  function normalizarTexto(texto) {
+    return texto
+      .toLocaleLowerCase("es")
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+  }
+
+  if (buscador && listaGlosario && mensajeVacio) {
     const conceptos = Array.from(
       listaGlosario.querySelectorAll(".concepto")
     );
-
-    const mensajeVacio = document.createElement("p");
-    mensajeVacio.className = "nota";
-    mensajeVacio.textContent = "No se encontraron conceptos.";
-    mensajeVacio.hidden = true;
-
-    listaGlosario.after(mensajeVacio);
 
     buscador.addEventListener("input", () => {
       const consulta = normalizarTexto(buscador.value.trim());
@@ -186,59 +198,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
         concepto.hidden = !coincide;
 
-        if (coincide) {
-          encontrados++;
-        }
+        if (coincide) encontrados++;
       });
 
       mensajeVacio.hidden = encontrados > 0;
     });
   }
 
-  /**
-   * Normaliza el texto para que las búsquedas
-   * no dependan de mayúsculas ni acentos.
-   */
-  function normalizarTexto(texto) {
-    return texto
-      .toLocaleLowerCase("es")
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "");
-  }
-
-  // ---------------------------------------------------
-  // 4. AÑO AUTOMÁTICO EN EL PIE DE PÁGINA
-  // ---------------------------------------------------
-
-  const pie = document.querySelector(".pie");
-
-  if (pie) {
-    const anio = new Date().getFullYear();
-
-    /*
-     * Agrega el año actual sin eliminar el contenido
-     * existente del pie de página.
-     */
-    const marcaAnio = document.createElement("p");
-    marcaAnio.className = "anio-actual";
-    marcaAnio.textContent = `© ${anio} · Proyecto educativo`;
-
-    pie.appendChild(marcaAnio);
-  }
-
-  // ---------------------------------------------------
-  // 5. ANIMACIONES DE ENTRADA
-  // ---------------------------------------------------
+  // =====================================================
+  // 4. ANIMACIONES AL DESPLAZARSE
+  // =====================================================
 
   const elementosAnimados = document.querySelectorAll(
-    ".tarjeta, .contenido-tiempo, .concepto, .galeria-elemento"
+    ".tarjeta, .foto-tarjeta, .ciencia-card, " +
+    ".panel-gnomon, .evento-historico, .galeria-elemento, " +
+    ".concepto, .cita-ciencia"
   );
 
-  /*
-   * Solo activa animaciones cuando el navegador admite
-   * IntersectionObserver y el usuario no ha solicitado
-   * movimiento reducido.
-   */
   const movimientoReducido = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   ).matches;
@@ -253,9 +229,7 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         });
       },
-      {
-        threshold: 0.12
-      }
+      { threshold: 0.08 }
     );
 
     elementosAnimados.forEach((elemento) => {
@@ -264,14 +238,63 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ---------------------------------------------------
-  // 6. AÑO Y ESTADO INICIAL
-  // ---------------------------------------------------
+  // =====================================================
+  // 5. CONTROL DE LAS 28 FOTOGRAFÍAS
+  // =====================================================
 
+  const imagenes = document.querySelectorAll("img");
+  let imagenesCargadas = 0;
+
+  imagenes.forEach((imagen) => {
+    const marcarCarga = () => {
+      imagenesCargadas++;
+      imagen.classList.add("imagen-cargada");
+    };
+
+    if (imagen.complete && imagen.naturalWidth > 0) {
+      marcarCarga();
+    } else {
+      imagen.addEventListener("load", marcarCarga, { once: true });
+    }
+
+    imagen.addEventListener("error", () => {
+      imagen.classList.add("imagen-no-disponible");
+      imagen.setAttribute(
+        "title",
+        "No se encontró esta imagen. Revisa su nombre y ubicación."
+      );
+    }, { once: true });
+  });
+
+  // Contar los elementos de la galería.
+  const galeria = document.getElementById("galeria-imagenes");
+  const contador = document.getElementById("contador-imagenes");
+
+  if (galeria && contador) {
+    contador.textContent = String(
+      galeria.querySelectorAll(".galeria-elemento").length + 13
+    );
+  }
+
+  // =====================================================
+  // 6. AÑO AUTOMÁTICO DEL PIE DE PÁGINA
+  // =====================================================
+
+  const pie = document.querySelector(".pie");
+
+  if (pie) {
+    const marcaAnio = document.createElement("p");
+    marcaAnio.className = "pie-anio";
+    marcaAnio.textContent =
+      `© ${new Date().getFullYear()} · Proyecto educativo CBTis No. 4`;
+
+    pie.appendChild(marcaAnio);
+  }
+
+  // Activar los estilos que dependen de JavaScript.
   document.documentElement.classList.add("js-activo");
 
   console.info(
     "Reloj Solar CBTis No. 4: sitio inicializado correctamente."
   );
-
 });
