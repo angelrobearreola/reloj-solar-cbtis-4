@@ -1,212 +1,47 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#050816">
-  <meta name="description" content="Explora la Luna: sus misterios, fases, características y movimientos en una experiencia astronómica interactiva.">
-  <title>LUNA | Exploración Astronómica</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌙 Universo Lunar</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="stars" aria-hidden="true"></div>
 
-  <header class="navbar">
-    <a class="brand" href="#inicio">☾ LUNAR<span>.</span></a>
-    <nav>
-      <a href="#explorar">Explorar</a>
-      <a href="#datos">Datos lunares</a>
-      <a href="#fases">Fases</a>
-    </nav>
-    <span class="status"><i></i> SISTEMA ACTIVO</span>
-  </header>
+    <header>
+        <h1>🌙 UNIVERSO LUNAR</h1>
+        <p>Descubre los secretos de nuestra Luna</p>
+    </header>
 
-  <main>
-    <section class="hero" id="inicio">
-      <div class="hero-copy">
-        <span class="eyebrow">SATÉLITE NATURAL DE LA TIERRA</span>
-        <h1>EL MISTERIO<br>DE LA <span>LUNA.</span></h1>
-        <p class="intro">
-          Un mundo de cráteres, montañas y antiguos impactos.
-          Explora el satélite que ha acompañado a nuestro planeta
-          durante miles de millones de años.
+    <main>
+        <div class="luna" id="luna">🌕</div>
+
+        <h2 id="titulo">¡Explora la Luna!</h2>
+        <p id="informacion">
+            Nuestro satélite natural esconde grandes misterios.
+            ¡Presiona los botones para descubrirlos!
         </p>
-        <div class="hero-actions">
-          <a href="#explorar" class="button primary">Explorar la Luna ↗</a>
-          <a href="#datos" class="button secondary">Descubrir datos</a>
-        </div>
-        <div class="hero-note">
-          <span class="pulse"></span>
-          UNA VENTANA AL UNIVERSO
-        </div>
-      </div>
 
-      <div class="moon-stage" id="explorar">
-        <div class="orbit orbit-one"></div>
-        <div class="orbit orbit-two"></div>
-        <div class="moon-halo"></div>
-        <div class="moon" id="moon" role="img"
-          aria-label="Luna tridimensional animada">
-          <div class="moon-texture"></div>
-          <div class="moon-shadow" id="moonShadow"></div>
-          <div class="moon-glow"></div>
-        </div>
-        <div class="moon-label label-top">
-          <span>01 / SATÉLITE</span>
-          <strong>La Luna</strong>
-        </div>
-        <div class="moon-label label-bottom">
-          <span>DISTANCIA MEDIA</span>
-          <strong>384,400 km</strong>
-        </div>
-        <div class="orbit-dot"></div>
-      </div>
-
-      <div class="scroll-indicator">DESLIZA PARA DESCUBRIR <span>↓</span></div>
-    </section>
-
-    <section class="section facts-section" id="datos">
-      <div class="section-heading">
-        <span class="eyebrow">01 — FICHA ASTRONÓMICA</span>
-        <h2>Un pequeño mundo.<br><span>Una historia inmensa.</span></h2>
-        <p>Las cifras que explican nuestro vecino celeste.</p>
-      </div>
-
-      <div class="facts-grid">
-        <article class="fact-card">
-          <span class="fact-icon">◉</span>
-          <span class="fact-label">DIÁMETRO</span>
-          <strong>3,475 <small>km</small></strong>
-          <p>Aproximadamente una cuarta parte del diámetro terrestre.</p>
-        </article>
-        <article class="fact-card">
-          <span class="fact-icon">⌁</span>
-          <span class="fact-label">EDAD</span>
-          <strong>4,500 <small>millones de años</small></strong>
-          <p>Se formó en los primeros tiempos del sistema solar.</p>
-        </article>
-        <article class="fact-card">
-          <span class="fact-icon">↻</span>
-          <span class="fact-label">ROTACIÓN</span>
-          <strong>27.3 <small>días</small></strong>
-          <p>Tarda aproximadamente lo mismo en girar que en orbitar la Tierra.</p>
-        </article>
-        <article class="fact-card">
-          <span class="fact-icon">↓</span>
-          <span class="fact-label">GRAVEDAD</span>
-          <strong>1.62 <small>m/s²</small></strong>
-          <p>Su gravedad superficial equivale a cerca del 16.5 % de la terrestre.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section story-section">
-      <div class="story-visual">
-        <div class="mini-moon">
-          <div class="mini-crater crater-one"></div>
-          <div class="mini-crater crater-two"></div>
-          <div class="mini-crater crater-three"></div>
-        </div>
-        <span class="visual-caption">SUPERFICIE LUNAR · REPRESENTACIÓN ILUSTRATIVA</span>
-      </div>
-      <div class="story-copy">
-        <span class="eyebrow">02 — OTRO MUNDO</span>
-        <h2>Un paisaje escrito<br>en <span>cráteres.</span></h2>
-        <p>
-          La superficie lunar conserva huellas de impactos ocurridos
-          durante miles de millones de años. Como casi no tiene atmósfera,
-          viento ni lluvia como los terrestres, muchos de esos rastros
-          permanecen durante muchísimo tiempo.
-        </p>
-        <p>
-          Sus grandes llanuras oscuras, llamadas mares lunares, son
-          regiones formadas principalmente por antiguas lavas solidificadas.
-          No contienen océanos de agua líquida.
-        </p>
-        <div class="highlight">
-          <span>✦</span>
-          <p><strong>¿Sabías que...?</strong><br>La Luna siempre nos muestra aproximadamente la misma cara porque su rotación está sincronizada con su órbita.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section phases-section" id="fases">
-      <div class="section-heading centered">
-        <span class="eyebrow">03 — CICLO LUNAR</span>
-        <h2>Ocho formas de<br><span>mirar la Luna.</span></h2>
-        <p>Selecciona una fase para explorar cómo cambia su iluminación.</p>
-      </div>
-
-      <div class="phase-explorer">
-        <div class="phase-display">
-          <div class="phase-moon" id="phaseMoon">
-            <div class="phase-lit" id="phaseLit"></div>
-          </div>
-          <span class="phase-counter" id="phaseCounter">FASE 01 / 08</span>
-          <h3 id="phaseName">Luna nueva</h3>
-          <p id="phaseDescription">La cara iluminada mira principalmente hacia el Sol y la cara nocturna hacia la Tierra.</p>
-          <div class="phase-controls">
-            <button id="prevPhase" aria-label="Fase anterior">←</button>
-            <button id="nextPhase" aria-label="Fase siguiente">→</button>
-          </div>
+        <div class="botones">
+            <button onclick="cambiarLuna()">🌗 Cambiar Luna</button>
+            <button onclick="datoLunar()">🚀 Dato espacial</button>
+            <button onclick="cambiarColor()">🎨 Cambiar colores</button>
+            <button onclick="animarLuna()">✨ Girar Luna</button>
         </div>
 
-        <div class="phase-list" id="phaseList">
-          <button class="phase-option active" data-phase="0"><span>🌑</span><span><strong>Luna nueva</strong><small>Iluminación aparente mínima</small></span><b>01</b></button>
-          <button class="phase-option" data-phase="1"><span>🌒</span><span><strong>Luna creciente</strong><small>Aparece una franja iluminada</small></span><b>02</b></button>
-          <button class="phase-option" data-phase="2"><span>🌓</span><span><strong>Cuarto creciente</strong><small>Vemos aproximadamente la mitad</small></span><b>03</b></button>
-          <button class="phase-option" data-phase="3"><span>🌔</span><span><strong>Gibosa creciente</strong><small>Más de la mitad iluminada</small></span><b>04</b></button>
-          <button class="phase-option" data-phase="4"><span>🌕</span><span><strong>Luna llena</strong><small>Disco lunar casi completamente iluminado</small></span><b>05</b></button>
-          <button class="phase-option" data-phase="5"><span>🌖</span><span><strong>Gibosa menguante</strong><small>La parte iluminada disminuye</small></span><b>06</b></button>
-          <button class="phase-option" data-phase="6"><span>🌗</span><span><strong>Cuarto menguante</strong><small>Vemos aproximadamente la mitad</small></span><b>07</b></button>
-          <button class="phase-option" data-phase="7"><span>🌘</span><span><strong>Menguante</strong><small>Queda una franja iluminada</small></span><b>08</b></button>
-        </div>
-      </div>
-    </section>
+        <section class="tarjeta">
+            <h3>🌌 Datos de la Luna</h3>
+            <p>📏 Diámetro: aproximadamente 3,475 km</p>
+            <p>🌍 Distancia media a la Tierra: 384,400 km</p>
+            <p>⏳ Órbita alrededor de la Tierra: 27.3 días</p>
+            <p>🧑‍🚀 Primer alunizaje tripulado: 1969</p>
+        </section>
+    </main>
 
-    <section class="section mission-section">
-      <span class="eyebrow">04 — EXPLORACIÓN HUMANA</span>
-      <h2>Un paso hacia<br><span>lo desconocido.</span></h2>
-      <p>
-        El programa Apolo permitió que seres humanos caminaran sobre la
-        superficie lunar entre 1969 y 1972. Hoy, nuevas misiones estudian
-        cómo regresar y ampliar nuestro conocimiento de la Luna.
-      </p>
-      <div class="mission-stats">
-        <div><strong>1969</strong><span>Primer alunizaje tripulado</span></div>
-        <div><strong>12</strong><span>Astronautas caminaron en la Luna</span></div>
-        <div><strong>384 mil km</strong><span>Distancia media desde la Tierra</span></div>
-      </div>
-    </section>
+    <footer>
+        <p>🌙 Universo Lunar · Explorando el espacio</p>
+    </footer>
 
-    <section class="section glossary-section">
-      <span class="eyebrow">05 — PARA SEGUIR APRENDIENDO</span>
-      <h2>Preguntas del <span>cosmos.</span></h2>
-      <details>
-        <summary>¿La Luna produce su propia luz?</summary>
-        <p>No. La luz que vemos es principalmente luz solar reflejada por su superficie.</p>
-      </details>
-      <details>
-        <summary>¿Por qué existen las fases lunares?</summary>
-        <p>Mientras la Luna orbita la Tierra, cambia el ángulo desde el que observamos su mitad iluminada por el Sol.</p>
-      </details>
-      <details>
-        <summary>¿Hay agua en la Luna?</summary>
-        <p>Sí. Se ha detectado agua en determinadas regiones y hielo en zonas permanentemente sombreadas, especialmente cerca de los polos. Su distribución y cantidad varían según el lugar.</p>
-      </details>
-      <details>
-        <summary>¿Cuánto dura un día lunar?</summary>
-        <p>Un ciclo de día y noche solar en la superficie lunar dura aproximadamente 29.5 días terrestres.</p>
-      </details>
-    </section>
-  </main>
-
-  <footer>
-    <a class="brand" href="#inicio">☾ LUNAR<span>.</span></a>
-    <p>Explorando nuestro universo, una pregunta a la vez.</p>
-    <span>PROYECTO EDUCATIVO · ASTRONOMÍA</span>
-  </footer>
+    <script src="script.js"></script>
 </body>
 </html>
