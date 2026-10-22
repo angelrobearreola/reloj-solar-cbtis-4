@@ -1242,3 +1242,148 @@ p, figcaption, blockquote,
     justify-items: center;
   }
 }
+
+/* =====================================================
+   FONDO GALÁCTICO · RELOJ SOLAR CBTis No. 4
+   ===================================================== */
+
+html {
+  min-height: 100%;
+  background-color: #030611;
+}
+
+body {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 50% 15%,
+      rgba(61, 40, 125, 0.30), transparent 48%),
+    radial-gradient(ellipse at 15% 45%,
+      rgba(20, 67, 125, 0.24), transparent 45%),
+    radial-gradient(ellipse at 85% 70%,
+      rgba(91, 32, 116, 0.20), transparent 42%),
+    linear-gradient(180deg,
+      #030611 0%,
+      #091126 45%,
+      #050916 100%);
+  background-attachment: fixed;
+}
+
+/* Capa de estrellas pequeñas */
+.fondo-estrellas {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.8;
+  background-image:
+    radial-gradient(1px 1px at 20px 30px, #fff, transparent),
+    radial-gradient(1px 1px at 80px 110px, #dce8ff, transparent),
+    radial-gradient(2px 2px at 150px 70px, #fff, transparent),
+    radial-gradient(1px 1px at 220px 180px, #c9d9ff, transparent),
+    radial-gradient(1px 1px at 280px 40px, #fff, transparent),
+    radial-gradient(2px 2px at 340px 140px, #fff0ce, transparent);
+  background-size: 380px 220px;
+  background-repeat: repeat;
+}
+
+/* Nubes de gas y nebulosas */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 25% 25%,
+      rgba(86, 47, 153, 0.13), transparent 35%),
+    radial-gradient(ellipse at 75% 55%,
+      rgba(28, 85, 160, 0.13), transparent 38%);
+}
+
+/* Mantener transparentes las secciones para
+   que se vea el fondo galáctico */
+.seccion-oscura {
+  background-color: rgba(3, 8, 22, 0.30);
+  background-image:
+    radial-gradient(ellipse at 95% 20%,
+      rgba(65, 78, 150, 0.10), transparent 40%);
+}
+
+.franja {
+  background: rgba(4, 9, 24, 0.30);
+}
+
+.cierre {
+  background:
+    radial-gradient(ellipse at 50% 100%,
+      rgba(61, 53, 130, 0.22), transparent 65%),
+    rgba(4, 9, 24, 0.65);
+}
+
+/* =====================================================
+   TEXTO BLANCO GLOBAL
+   ===================================================== */
+
+body,
+body p,
+body span,
+body li,
+body label,
+body small,
+body strong,
+body em,
+body figcaption,
+body legend,
+body summary,
+body dt,
+body dd,
+body blockquote,
+body a,
+body button,
+body input,
+body textarea,
+body select,
+body option,
+body h1,
+body h2,
+body h3,
+body h4,
+body h5,
+body h6 {
+  color: #ffffff !important;
+}
+
+/* Campos de texto */
+input,
+textarea,
+select {
+  color: #ffffff !important;
+  background-color: rgba(8, 16, 38, 0.90);
+}
+
+/* Texto de ayuda */
+input::placeholder,
+textarea::placeholder {
+  color: #d0d8e8 !important;
+  opacity: 1;
+}
+
+/* Texto de botones dorados: conservar contraste */
+.boton-dorado,
+.boton-dorado *,
+.ciencia-imagen span {
+  color: #101426 !important;
+}
+
+/* Mantener legibles los elementos deshabilitados */
+button:disabled {
+  color: #d0d0d0 !important;
+}
+
+/* Texto seleccionado */
+::selection {
+  color: #ffffff;
+  background: #55439a;
+}
