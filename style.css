@@ -973,4 +973,98 @@ main {
     transition-duration: 0.01ms !important;
   }
 }
-```
+
+/* =====================================================
+   AJUSTE FINAL DE CENTRADO · RELOJ SOLAR CBTis No. 4
+   Añadir al final del archivo CSS existente
+   ===================================================== */
+
+/* Evitar desbordamientos horizontales */
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+}
+
+body {
+  overflow-x: clip;
+}
+
+/* Centrar y limitar el contenido principal */
+.portada,
+.seccion,
+.pie {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* Centrar títulos de las secciones */
+.encabezado-seccion {
+  text-align: center;
+}
+
+.encabezado-seccion h2,
+.encabezado-seccion .numero-seccion {
+  text-align: center;
+}
+
+/* Centrar las descripciones de los encabezados */
+.encabezado-seccion .introduccion {
+  width: 100%;
+  max-width: 650px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Centrar los elementos de la galería */
+.galeria {
+  justify-items: stretch;
+  align-items: stretch;
+}
+
+/* Mantener las tarjetas correctamente alineadas */
+.rejilla-proyecto,
+.ciencia-grid,
+.glosario-lista {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* Centrar el contenido del panel científico */
+.panel-gnomon {
+  text-align: center;
+}
+
+/* Centrar los elementos de cierre */
+.cierre {
+  justify-items: center;
+  text-align: center;
+}
+
+.cierre > p {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* Mejorar el centrado en pantallas pequeñas */
+@media (max-width: 780px) {
+  .encabezado-seccion {
+    justify-items: center;
+    text-align: center;
+  }
+
+  .encabezado-seccion h2,
+  .encabezado-seccion .introduccion {
+    text-align: center;
+  }
+
+  .panel-gnomon {
+    justify-items: center;
+  }
+
+  .portada-contenido {
+    width: 100%;
+  }
+}
+
