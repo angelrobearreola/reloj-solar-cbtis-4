@@ -1,582 +1,212 @@
-Escritura
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <meta name="theme-color" content="#080b12">
-  <meta name="description"
-    content="Proyecto educativo del Reloj Solar Horizontal del CBTis No. 4, en Ciudad Lerdo, Durango. Ciencia, astronomía, historia y observación del Sol.">
-
-  <title>Reloj Solar Horizontal | CBTis No. 4</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+  <meta name="theme-color" content="#050816">
+  <meta name="description" content="Explora la Luna: sus misterios, fases, características y movimientos en una experiencia astronómica interactiva.">
+  <title>LUNA | Exploración Astronómica</title>
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 </head>
-
 <body>
-  <a class="salto-contenido" href="#contenido">
-    Saltar al contenido
-  </a>
+  <div class="stars" aria-hidden="true"></div>
 
-  <header class="cabecera">
-    <a class="marca" href="#inicio" aria-label="Inicio del proyecto">
-      <span class="marca-simbolo" aria-hidden="true">☼</span>
-      <span class="marca-texto">
-        <strong>CBTis No. 4</strong>
-        <small>Proyecto astronómico</small>
-      </span>
-    </a>
-
-    <button
-      class="menu-toggle"
-      id="menu-toggle"
-      type="button"
-      aria-label="Abrir menú"
-      aria-expanded="false"
-      aria-controls="navegacion">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-
-    <nav class="navegacion" id="navegacion"
-      aria-label="Navegación principal">
-      <a href="#proyecto">El proyecto</a>
-      <a href="#funcionamiento">Funcionamiento</a>
-      <a href="#historia">Historia</a>
-      <a href="#simulador">Simulador</a>
-      <a href="#galeria">Galería</a>
-      <a href="#documento">Documento</a>
+  <header class="navbar">
+    <a class="brand" href="#inicio">☾ LUNAR<span>.</span></a>
+    <nav>
+      <a href="#explorar">Explorar</a>
+      <a href="#datos">Datos lunares</a>
+      <a href="#fases">Fases</a>
     </nav>
+    <span class="status"><i></i> SISTEMA ACTIVO</span>
   </header>
 
-  <main id="contenido">
-
-    <!-- PORTADA -->
-    <section class="portada" id="inicio">
-      <div class="portada-fondo" aria-hidden="true"></div>
-
-      <div class="portada-contenido">
-        <p class="etiqueta">CIENCIA · ASTRONOMÍA · PATRIMONIO</p>
-
-        <p class="portada-institucion">
-          Centro de Bachillerato Tecnológico y de Servicios No. 4
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-copy">
+        <span class="eyebrow">SATÉLITE NATURAL DE LA TIERRA</span>
+        <h1>EL MISTERIO<br>DE LA <span>LUNA.</span></h1>
+        <p class="intro">
+          Un mundo de cráteres, montañas y antiguos impactos.
+          Explora el satélite que ha acompañado a nuestro planeta
+          durante miles de millones de años.
         </p>
-
-        <h1>
-          RELOJ SOLAR
-          <span>HORIZONTAL</span>
-        </h1>
-
-        <div class="ornamento" aria-hidden="true">
-          <span></span> ✦ <span></span>
+        <div class="hero-actions">
+          <a href="#explorar" class="button primary">Explorar la Luna ↗</a>
+          <a href="#datos" class="button secondary">Descubrir datos</a>
         </div>
+        <div class="hero-note">
+          <span class="pulse"></span>
+          UNA VENTANA AL UNIVERSO
+        </div>
+      </div>
 
-        <p class="lema-latino">COELESTIA MONSTRAT IN UMBRA</p>
-        <p class="lema-espanol">Con una sombra explico los cielos</p>
+      <div class="moon-stage" id="explorar">
+        <div class="orbit orbit-one"></div>
+        <div class="orbit orbit-two"></div>
+        <div class="moon-halo"></div>
+        <div class="moon" id="moon" role="img"
+          aria-label="Luna tridimensional animada">
+          <div class="moon-texture"></div>
+          <div class="moon-shadow" id="moonShadow"></div>
+          <div class="moon-glow"></div>
+        </div>
+        <div class="moon-label label-top">
+          <span>01 / SATÉLITE</span>
+          <strong>La Luna</strong>
+        </div>
+        <div class="moon-label label-bottom">
+          <span>DISTANCIA MEDIA</span>
+          <strong>384,400 km</strong>
+        </div>
+        <div class="orbit-dot"></div>
+      </div>
 
-        <p class="portada-descripcion">
-          Un recorrido por la relación entre el Sol, la sombra,
-          el tiempo y el conocimiento astronómico.
+      <div class="scroll-indicator">DESLIZA PARA DESCUBRIR <span>↓</span></div>
+    </section>
+
+    <section class="section facts-section" id="datos">
+      <div class="section-heading">
+        <span class="eyebrow">01 — FICHA ASTRONÓMICA</span>
+        <h2>Un pequeño mundo.<br><span>Una historia inmensa.</span></h2>
+        <p>Las cifras que explican nuestro vecino celeste.</p>
+      </div>
+
+      <div class="facts-grid">
+        <article class="fact-card">
+          <span class="fact-icon">◉</span>
+          <span class="fact-label">DIÁMETRO</span>
+          <strong>3,475 <small>km</small></strong>
+          <p>Aproximadamente una cuarta parte del diámetro terrestre.</p>
+        </article>
+        <article class="fact-card">
+          <span class="fact-icon">⌁</span>
+          <span class="fact-label">EDAD</span>
+          <strong>4,500 <small>millones de años</small></strong>
+          <p>Se formó en los primeros tiempos del sistema solar.</p>
+        </article>
+        <article class="fact-card">
+          <span class="fact-icon">↻</span>
+          <span class="fact-label">ROTACIÓN</span>
+          <strong>27.3 <small>días</small></strong>
+          <p>Tarda aproximadamente lo mismo en girar que en orbitar la Tierra.</p>
+        </article>
+        <article class="fact-card">
+          <span class="fact-icon">↓</span>
+          <span class="fact-label">GRAVEDAD</span>
+          <strong>1.62 <small>m/s²</small></strong>
+          <p>Su gravedad superficial equivale a cerca del 16.5 % de la terrestre.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section story-section">
+      <div class="story-visual">
+        <div class="mini-moon">
+          <div class="mini-crater crater-one"></div>
+          <div class="mini-crater crater-two"></div>
+          <div class="mini-crater crater-three"></div>
+        </div>
+        <span class="visual-caption">SUPERFICIE LUNAR · REPRESENTACIÓN ILUSTRATIVA</span>
+      </div>
+      <div class="story-copy">
+        <span class="eyebrow">02 — OTRO MUNDO</span>
+        <h2>Un paisaje escrito<br>en <span>cráteres.</span></h2>
+        <p>
+          La superficie lunar conserva huellas de impactos ocurridos
+          durante miles de millones de años. Como casi no tiene atmósfera,
+          viento ni lluvia como los terrestres, muchos de esos rastros
+          permanecen durante muchísimo tiempo.
         </p>
+        <p>
+          Sus grandes llanuras oscuras, llamadas mares lunares, son
+          regiones formadas principalmente por antiguas lavas solidificadas.
+          No contienen océanos de agua líquida.
+        </p>
+        <div class="highlight">
+          <span>✦</span>
+          <p><strong>¿Sabías que...?</strong><br>La Luna siempre nos muestra aproximadamente la misma cara porque su rotación está sincronizada con su órbita.</p>
+        </div>
+      </div>
+    </section>
 
-        <a class="boton boton-principal" href="#proyecto">
-          Explorar el proyecto <span aria-hidden="true">↓</span>
-        </a>
+    <section class="section phases-section" id="fases">
+      <div class="section-heading centered">
+        <span class="eyebrow">03 — CICLO LUNAR</span>
+        <h2>Ocho formas de<br><span>mirar la Luna.</span></h2>
+        <p>Selecciona una fase para explorar cómo cambia su iluminación.</p>
+      </div>
 
-        <div class="datos-geograficos">
-          <div>
-            <span>LOCALIDAD</span>
-            <strong>Ciudad Lerdo, Durango</strong>
+      <div class="phase-explorer">
+        <div class="phase-display">
+          <div class="phase-moon" id="phaseMoon">
+            <div class="phase-lit" id="phaseLit"></div>
           </div>
-          <div>
-            <span>LATITUD</span>
-            <strong>25° 33′ norte</strong>
-          </div>
-          <div>
-            <span>LONGITUD</span>
-            <strong>103° 26′</strong>
-          </div>
-          <div>
-            <span>ALTITUD</span>
-            <strong>1,122 msnm</strong>
+          <span class="phase-counter" id="phaseCounter">FASE 01 / 08</span>
+          <h3 id="phaseName">Luna nueva</h3>
+          <p id="phaseDescription">La cara iluminada mira principalmente hacia el Sol y la cara nocturna hacia la Tierra.</p>
+          <div class="phase-controls">
+            <button id="prevPhase" aria-label="Fase anterior">←</button>
+            <button id="nextPhase" aria-label="Fase siguiente">→</button>
           </div>
         </div>
-      </div>
 
-      <div class="portada-imagen">
-        <img
-          src="imagenes/foto-01.jpg"
-          alt="Reloj solar horizontal del proyecto educativo del CBTis No. 4"
-          fetchpriority="high">
-        <span>01 / EL RELOJ SOLAR</span>
-      </div>
-    </section>
-
-    <!-- INTRODUCCIÓN -->
-    <section class="seccion seccion-introduccion" id="proyecto">
-      <div class="encabezado-seccion">
-        <p class="etiqueta">01 — EL PROYECTO</p>
-        <h2>Una sombra para comprender el cielo</h2>
-        <p class="bajada">
-          El reloj solar convierte el movimiento aparente del Sol
-          en una forma de observar y comprender el paso del tiempo.
-        </p>
-      </div>
-
-      <div class="rejilla-introduccion">
-        <div class="texto-introduccion">
-          <p>
-            Una de las ideas más geniales del hombre, que más ha
-            sorprendido por su simplicidad es el reloj de sol.
-            Básicamente, se trata de una sombra que se desplaza en
-            sentido opuesto a la trayectoria del Sol, mientras va
-            mostrando su recorrido a través del tiempo.
-          </p>
-
-          <p>
-            El reloj de sol es una conquista de la ciencia y no un
-            producto del arte popular, como pudiera creerse.
-          </p>
-
-          <p>
-            Este proyecto presenta el reloj solar horizontal del
-            Centro de Bachillerato Tecnológico y de Servicios No. 4,
-            en Ciudad Lerdo, Durango.
-          </p>
-        </div>
-
-        <figure class="imagen-editorial">
-          <img
-            src="imagenes/foto-02.jpg"
-            alt="Vista del proyecto del reloj solar">
-          <figcaption>
-            Observación, geometría y astronomía.
-          </figcaption>
-        </figure>
-      </div>
-
-      <div class="tarjetas-datos">
-        <article class="tarjeta-dato">
-          <span class="numero-romano">I</span>
-          <h3>Observación</h3>
-          <p>La sombra permite estudiar el movimiento aparente del Sol.</p>
-        </article>
-
-        <article class="tarjeta-dato">
-          <span class="numero-romano">II</span>
-          <h3>Geometría</h3>
-          <p>La posición del estilo y las líneas horarias organizan el cuadrante.</p>
-        </article>
-
-        <article class="tarjeta-dato">
-          <span class="numero-romano">III</span>
-          <h3>Conocimiento</h3>
-          <p>La astronomía conecta el tiempo cotidiano con los ciclos celestes.</p>
-        </article>
-      </div>
-    </section>
-
-    <!-- FUNCIONAMIENTO -->
-    <section class="seccion seccion-alternativa" id="funcionamiento">
-      <div class="encabezado-seccion">
-        <p class="etiqueta">02 — PRINCIPIOS CIENTÍFICOS</p>
-        <h2>¿Cómo funciona un reloj solar?</h2>
-        <p class="bajada">
-          Sus componentes permiten relacionar la posición del Sol
-          con la dirección y la longitud de la sombra.
-        </p>
-      </div>
-
-      <div class="rejilla-ciencia">
-        <figure class="imagen-editorial">
-          <img
-            src="imagenes/foto-03.jpg"
-            alt="Detalle del cuadrante de un reloj solar horizontal">
-          <figcaption>El cuadrante y sus líneas horarias.</figcaption>
-        </figure>
-
-        <div class="texto-ciencia">
-          <p>
-            Los relojes de sol marcan la hora solar verdadera. En el
-            caso del reloj descrito en el documento, la hora está
-            corregida por longitud geográfica para facilitar su lectura.
-          </p>
-
-          <p>
-            Está formado por un gnomon o estilo. Cuando los rayos del
-            Sol inciden sobre él, proyectan una sombra sobre una
-            superficie denominada cuadrante, donde se encuentran
-            marcadas las líneas horarias y las líneas de declinación.
-          </p>
-
-          <p>
-            A medida que el Sol se desplaza aparentemente por el cielo
-            durante el día, la sombra se mueve por el cuadrante graduado
-            y señala el tiempo horario transcurrido.
-          </p>
-
-          <p>
-            Para relacionar la hora solar con la hora legal o civil,
-            el documento explica que debe considerarse la Ecuación
-            del Tiempo.
-          </p>
-        </div>
-      </div>
-
-      <div class="rejilla-imagenes-ciencia">
-        <figure>
-          <img src="imagenes/foto-04.jpg" alt="Detalle del gnomon">
-          <figcaption>El gnomon o estilo</figcaption>
-        </figure>
-        <figure>
-          <img src="imagenes/foto-05.jpg" alt="Detalle de las líneas horarias">
-          <figcaption>Las líneas horarias</figcaption>
-        </figure>
-        <figure>
-          <img src="imagenes/foto-06.jpg" alt="Sombra proyectada sobre el cuadrante">
-          <figcaption>La sombra solar</figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <!-- PARTES DEL RELOJ -->
-    <section class="seccion" id="partes">
-      <div class="encabezado-seccion">
-        <p class="etiqueta">03 — ELEMENTOS DEL INSTRUMENTO</p>
-        <h2>Partes del reloj solar</h2>
-        <p class="bajada">
-          Identificaremos cada componente utilizando la información
-          y las imágenes del documento original.
-        </p>
-      </div>
-
-      <div class="rejilla-partes">
-        <article class="tarjeta-parte">
-          <img src="imagenes/foto-07.jpg" alt="Estilo o gnomon del reloj solar">
-          <div>
-            <h3>Gnomon o estilo</h3>
-            <p>Elemento que proyecta la sombra utilizada para leer el reloj.</p>
-          </div>
-        </article>
-
-        <article class="tarjeta-parte">
-          <img src="imagenes/foto-08.jpg" alt="Superficie graduada del reloj solar">
-          <div>
-            <h3>Cuadrante</h3>
-            <p>Superficie en la que se encuentran las marcas y líneas de referencia.</p>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- SIMULADOR -->
-    <section class="seccion seccion-alternativa" id="simulador">
-      <div class="encabezado-seccion">
-        <p class="etiqueta">04 — EXPERIMENTA</p>
-        <h2>Simulador solar</h2>
-        <p class="bajada">
-          En el siguiente paso construiremos una representación
-          interactiva para explorar cómo cambia la sombra.
-        </p>
-      </div>
-
-      <div class="simulador" id="simulador-solar">
-        <div class="simulador-visual">
-          <svg
-            id="reloj-svg"
-            viewBox="0 0 400 320"
-            role="img"
-            aria-label="Representación esquemática de un reloj solar horizontal">
-            <defs>
-              <radialGradient id="brillo-sol">
-                <stop offset="0%" stop-color="#fff3bf"/>
-                <stop offset="100%" stop-color="#d6a84f"/>
-              </radialGradient>
-            </defs>
-
-            <circle cx="320" cy="54" r="25" fill="url(#brillo-sol)"/>
-            <path
-              d="M200 80 L345 240 L55 240 Z"
-              fill="#b88c3a"
-              fill-opacity=".08"
-              stroke="#b88c3a"
-              stroke-opacity=".35"
-              stroke-dasharray="4 6"/>
-
-            <ellipse
-              cx="200" cy="235" rx="145" ry="44"
-              fill="#172334" stroke="#d6a84f" stroke-width="1.5"/>
-
-            <path
-              d="M200 235 L200 142"
-              stroke="#f2d28a" stroke-width="7"
-              stroke-linecap="round"/>
-
-            <path
-              id="sombra-svg"
-              d="M200 235 L125 205"
-              stroke="#d6a84f" stroke-width="9"
-              stroke-linecap="round" opacity=".9"/>
-
-            <circle cx="200" cy="235" r="5" fill="#f2d28a"/>
-            <text x="200" y="290" text-anchor="middle"
-              fill="#e8d9b5" font-size="11">
-              MODELO ESQUEMÁTICO
-            </text>
-          </svg>
-        </div>
-
-        <div class="simulador-controles">
-          <label for="control-hora">Hora de simulación</label>
-          <output id="hora-texto" for="control-hora">12:00</output>
-          <input
-            id="control-hora"
-            type="range"
-            min="6"
-            max="18"
-            value="12"
-            step=".25">
-
-          <div class="marcas-horas">
-            <span>06:00</span>
-            <span>12:00</span>
-            <span>18:00</span>
-          </div>
-
-          <button class="boton" id="reiniciar-hora" type="button">
-            Reiniciar simulación
-          </button>
-
-          <p class="nota-simulador">
-            Esta representación inicial es ilustrativa. En el paso
-            de programación incorporaremos el movimiento de la sombra
-            y explicaremos sus límites para que no se confunda con
-            una medición astronómica real.
-          </p>
+        <div class="phase-list" id="phaseList">
+          <button class="phase-option active" data-phase="0"><span>🌑</span><span><strong>Luna nueva</strong><small>Iluminación aparente mínima</small></span><b>01</b></button>
+          <button class="phase-option" data-phase="1"><span>🌒</span><span><strong>Luna creciente</strong><small>Aparece una franja iluminada</small></span><b>02</b></button>
+          <button class="phase-option" data-phase="2"><span>🌓</span><span><strong>Cuarto creciente</strong><small>Vemos aproximadamente la mitad</small></span><b>03</b></button>
+          <button class="phase-option" data-phase="3"><span>🌔</span><span><strong>Gibosa creciente</strong><small>Más de la mitad iluminada</small></span><b>04</b></button>
+          <button class="phase-option" data-phase="4"><span>🌕</span><span><strong>Luna llena</strong><small>Disco lunar casi completamente iluminado</small></span><b>05</b></button>
+          <button class="phase-option" data-phase="5"><span>🌖</span><span><strong>Gibosa menguante</strong><small>La parte iluminada disminuye</small></span><b>06</b></button>
+          <button class="phase-option" data-phase="6"><span>🌗</span><span><strong>Cuarto menguante</strong><small>Vemos aproximadamente la mitad</small></span><b>07</b></button>
+          <button class="phase-option" data-phase="7"><span>🌘</span><span><strong>Menguante</strong><small>Queda una franja iluminada</small></span><b>08</b></button>
         </div>
       </div>
     </section>
 
-    <!-- HISTORIA -->
-    <section class="seccion" id="historia">
-      <div class="encabezado-seccion">
-        <p class="etiqueta">05 — MEMORIA Y CIENCIA</p>
-        <h2>Breve historia de los relojes solares</h2>
-        <p class="bajada">
-          Una sección dedicada a la evolución de los instrumentos
-          solares, respetando el contenido histórico del documento.
-        </p>
-      </div>
-
-      <div class="historia-contenido">
-        <figure class="imagen-editorial">
-          <img src="imagenes/foto-10.jpg"
-            alt="Imagen histórica relacionada con los relojes solares">
-          <figcaption>Historia de la medición del tiempo solar.</figcaption>
-        </figure>
-
-        <div class="texto-historia">
-          <p>
-            Aquí organizaremos el texto histórico del PDF original,
-            conservando los nombres, explicaciones y datos que
-            aparecen en él.
-          </p>
-        </div>
-      </div>
-
-      <div class="galeria-historia">
-        <img src="imagenes/foto-11.jpg" alt="Imagen histórica del reloj solar">
-        <img src="imagenes/foto-12.jpg" alt="Detalle histórico de un instrumento solar">
-        <img src="imagenes/foto-13.jpg" alt="Referencia visual sobre la historia de la astronomía">
+    <section class="section mission-section">
+      <span class="eyebrow">04 — EXPLORACIÓN HUMANA</span>
+      <h2>Un paso hacia<br><span>lo desconocido.</span></h2>
+      <p>
+        El programa Apolo permitió que seres humanos caminaran sobre la
+        superficie lunar entre 1969 y 1972. Hoy, nuevas misiones estudian
+        cómo regresar y ampliar nuestro conocimiento de la Luna.
+      </p>
+      <div class="mission-stats">
+        <div><strong>1969</strong><span>Primer alunizaje tripulado</span></div>
+        <div><strong>12</strong><span>Astronautas caminaron en la Luna</span></div>
+        <div><strong>384 mil km</strong><span>Distancia media desde la Tierra</span></div>
       </div>
     </section>
 
-    <!-- CLASIFICACIÓN -->
-    <section class="seccion seccion-alternativa" id="clasificacion">
-      <div class="encabezado-seccion">
-        <p class="etiqueta">06 — TIPOS DE RELOJES SOLARES</p>
-        <h2>Clasificación de los relojes solares</h2>
-      </div>
-
-      <div class="rejilla-clasificacion">
-        <figure>
-          <img src="imagenes/foto-14.jpg" alt="Ejemplo de reloj solar">
-          <figcaption>Instrumentos solares</figcaption>
-        </figure>
-        <div>
-          <p>
-            Incorporaremos aquí la clasificación descrita en el
-            documento original, con sus términos y explicaciones.
-          </p>
-        </div>
-      </div>
+    <section class="section glossary-section">
+      <span class="eyebrow">05 — PARA SEGUIR APRENDIENDO</span>
+      <h2>Preguntas del <span>cosmos.</span></h2>
+      <details>
+        <summary>¿La Luna produce su propia luz?</summary>
+        <p>No. La luz que vemos es principalmente luz solar reflejada por su superficie.</p>
+      </details>
+      <details>
+        <summary>¿Por qué existen las fases lunares?</summary>
+        <p>Mientras la Luna orbita la Tierra, cambia el ángulo desde el que observamos su mitad iluminada por el Sol.</p>
+      </details>
+      <details>
+        <summary>¿Hay agua en la Luna?</summary>
+        <p>Sí. Se ha detectado agua en determinadas regiones y hielo en zonas permanentemente sombreadas, especialmente cerca de los polos. Su distribución y cantidad varían según el lugar.</p>
+      </details>
+      <details>
+        <summary>¿Cuánto dura un día lunar?</summary>
+        <p>Un ciclo de día y noche solar en la superficie lunar dura aproximadamente 29.5 días terrestres.</p>
+      </details>
     </section>
-
-    <!-- CONCEPTOS -->
-    <section class="seccion" id="conceptos">
-      <div class="encabezado-seccion">
-        <p class="etiqueta">07 — GLOSARIO ASTRONÓMICO</p>
-        <h2>Conceptos básicos</h2>
-        <p class="bajada">
-          Un espacio de consulta para comprender los términos
-          utilizados en el estudio del reloj solar.
-        </p>
-      </div>
-
-      <label class="busqueda-etiqueta" for="buscar-concepto">
-        Buscar un concepto
-      </label>
-      <input
-        id="buscar-concepto"
-        class="busqueda"
-        type="search"
-        placeholder="Ej. gnomon, cuadrante, declinación…">
-
-      <div id="glosario-lista" class="glosario-lista">
-        <article class="concepto">
-          <h3>Gnomon o estilo</h3>
-          <p>Elemento que proyecta la sombra sobre el cuadrante.</p>
-        </article>
-        <article class="concepto">
-          <h3>Cuadrante</h3>
-          <p>Superficie graduada en la que se lee la posición de la sombra.</p>
-        </article>
-        <article class="concepto">
-          <h3>Analema</h3>
-          <p>El documento describe figuras en forma de ocho asociadas a la hora legal exacta.</p>
-        </article>
-        <article class="concepto">
-          <h3>Ecuación del Tiempo</h3>
-          <p>Corrección que permite relacionar el tiempo solar aparente con el tiempo medio.</p>
-        </article>
-      </div>
-    </section>
-
-    <!-- EQUINOCCIOS Y SOLSTICIOS -->
-    <section class="seccion seccion-alternativa" id="estaciones">
-      <div class="encabezado-seccion">
-        <p class="etiqueta">08 — CICLOS DEL SOL</p>
-        <h2>Equinoccios y solsticios</h2>
-      </div>
-
-      <div class="rejilla-estaciones">
-        <figure class="imagen-editorial">
-          <img src="imagenes/foto-15.jpg"
-            alt="Ilustración relacionada con los ciclos anuales del Sol">
-          <figcaption>El recorrido aparente anual del Sol.</figcaption>
-        </figure>
-
-        <div>
-          <p>
-            Los equinoccios ocurren dos veces al año y son momentos
-            en los que el día y la noche tienen aproximadamente la
-            misma duración.
-          </p>
-          <p>
-            El solsticio de invierno marca el día más corto del año,
-            y el de verano, el más largo en el hemisferio norte.
-          </p>
-          <p>
-            Añadiremos las explicaciones y los datos específicos
-            del documento original en la siguiente fase.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- GALERÍA DE 28 FOTOGRAFÍAS -->
-    <section class="seccion" id="galeria">
-      <div class="encabezado-seccion">
-        <p class="etiqueta">09 — REGISTRO VISUAL</p>
-        <h2>Galería del proyecto</h2>
-        <p class="bajada">
-          Veintiocho espacios preparados para fotografías del reloj
-          solar, sus detalles, el proyecto y su contexto educativo.
-        </p>
-      </div>
-
-      <div class="galeria" id="galeria-imagenes">
-        <figure><img src="imagenes/foto-01.jpg" alt="Fotografía 1 del proyecto" loading="lazy"><figcaption>01 · El reloj solar</figcaption></figure>
-        <figure><img src="imagenes/foto-02.jpg" alt="Fotografía 2 del proyecto" loading="lazy"><figcaption>02 · Vista del proyecto</figcaption></figure>
-        <figure><img src="imagenes/foto-03.jpg" alt="Fotografía 3 del proyecto" loading="lazy"><figcaption>03 · El cuadrante</figcaption></figure>
-        <figure><img src="imagenes/foto-04.jpg" alt="Fotografía 4 del proyecto" loading="lazy"><figcaption>04 · El gnomon</figcaption></figure>
-        <figure><img src="imagenes/foto-05.jpg" alt="Fotografía 5 del proyecto" loading="lazy"><figcaption>05 · Líneas horarias</figcaption></figure>
-        <figure><img src="imagenes/foto-06.jpg" alt="Fotografía 6 del proyecto" loading="lazy"><figcaption>06 · La sombra</figcaption></figure>
-        <figure><img src="imagenes/foto-07.jpg" alt="Fotografía 7 del proyecto" loading="lazy"><figcaption>07 · Detalle del estilo</figcaption></figure>
-        <figure><img src="imagenes/foto-08.jpg" alt="Fotografía 8 del proyecto" loading="lazy"><figcaption>08 · Superficie graduada</figcaption></figure>
-        <figure><img src="imagenes/foto-09.jpg" alt="Fotografía 9 del proyecto" loading="lazy"><figcaption>09 · Observación solar</figcaption></figure>
-        <figure><img src="imagenes/foto-10.jpg" alt="Fotografía 10 del proyecto" loading="lazy"><figcaption>10 · Historia</figcaption></figure>
-        <figure><img src="imagenes/foto-11.jpg" alt="Fotografía 11 del proyecto" loading="lazy"><figcaption>11 · Referencia histórica</figcaption></figure>
-        <figure><img src="imagenes/foto-12.jpg" alt="Fotografía 12 del proyecto" loading="lazy"><figcaption>12 · Instrumentos solares</figcaption></figure>
-        <figure><img src="imagenes/foto-13.jpg" alt="Fotografía 13 del proyecto" loading="lazy"><figcaption>13 · Astronomía</figcaption></figure>
-        <figure><img src="imagenes/foto-14.jpg" alt="Fotografía 14 del proyecto" loading="lazy"><figcaption>14 · Clasificación</figcaption></figure>
-        <figure><img src="imagenes/foto-15.jpg" alt="Fotografía 15 del proyecto" loading="lazy"><figcaption>15 · Ciclos solares</figcaption></figure>
-        <figure><img src="imagenes/foto-16.jpg" alt="Fotografía 16 del proyecto" loading="lazy"><figcaption>16 · Equinoccios</figcaption></figure>
-        <figure><img src="imagenes/foto-17.jpg" alt="Fotografía 17 del proyecto" loading="lazy"><figcaption>17 · Solsticios</figcaption></figure>
-        <figure><img src="imagenes/foto-18.jpg" alt="Fotografía 18 del proyecto" loading="lazy"><figcaption>18 · Observación</figcaption></figure>
-        <figure><img src="imagenes/foto-19.jpg" alt="Fotografía 19 del proyecto" loading="lazy"><figcaption>19 · Geometría</figcaption></figure>
-        <figure><img src="imagenes/foto-20.jpg" alt="Fotografía 20 del proyecto" loading="lazy"><figcaption>20 · Cuadrante solar</figcaption></figure>
-        <figure><img src="imagenes/foto-21.jpg" alt="Fotografía 21 del proyecto" loading="lazy"><figcaption>21 · Detalle científico</figcaption></figure>
-        <figure><img src="imagenes/foto-22.jpg" alt="Fotografía 22 del proyecto" loading="lazy"><figcaption>22 · Proyecto escolar</figcaption></figure>
-        <figure><img src="imagenes/foto-23.jpg" alt="Fotografía 23 del proyecto" loading="lazy"><figcaption>23 · Registro fotográfico</figcaption></figure>
-        <figure><img src="imagenes/foto-24.jpg" alt="Fotografía 24 del proyecto" loading="lazy"><figcaption>24 · Detalle del instrumento</figcaption></figure>
-        <figure><img src="imagenes/foto-25.jpg" alt="Fotografía 25 del proyecto" loading="lazy"><figcaption>25 · Medición del tiempo</figcaption></figure>
-        <figure><img src="imagenes/foto-26.jpg" alt="Fotografía 26 del proyecto" loading="lazy"><figcaption>26 · Ciencia y educación</figcaption></figure>
-        <figure><img src="imagenes/foto-27.jpg" alt="Fotografía 27 del proyecto" loading="lazy"><figcaption>27 · Memoria del proyecto</figcaption></figure>
-        <figure><img src="imagenes/foto-28.jpg" alt="Fotografía 28 del proyecto" loading="lazy"><figcaption>28 · CBTis No. 4</figcaption></figure>
-      </div>
-    </section>
-
-    <!-- DOCUMENTO ORIGINAL -->
-    <section class="seccion seccion-documento" id="documento">
-      <div class="encabezado-seccion">
-        <p class="etiqueta">10 — FUENTE DEL PROYECTO</p>
-        <h2>Documento de referencia</h2>
-        <p class="bajada">
-          El PDF original contiene 29 páginas. Lo utilizaremos para
-          completar las secciones y respetar sus explicaciones,
-          datos y organización temática.
-        </p>
-      </div>
-
-      <div class="documento-nota">
-        <span class="documento-icono" aria-hidden="true">✦</span>
-        <div>
-          <h3>Reloj Solar Horizontal</h3>
-          <p>
-            Centro de Bachillerato Tecnológico y de Servicios No. 4.
-            Ciudad Lerdo, Durango.
-          </p>
-          <p>
-            El contenido íntegro se incorporará por secciones
-            verificadas contra el documento facilitado.
-          </p>
-        </div>
-      </div>
-    </section>
-
   </main>
 
-  <footer class="pie">
-    <a class="marca marca-pie" href="#inicio">
-      <span class="marca-simbolo" aria-hidden="true">☼</span>
-      <span class="marca-texto">
-        <strong>CBTis No. 4</strong>
-        <small>Reloj Solar Horizontal</small>
-      </span>
-    </a>
-
-    <p>COELESTIA MONSTRAT IN UMBRA</p>
-    <p>Con una sombra explico los cielos.</p>
-    <a href="#inicio">Volver al inicio ↑</a>
+  <footer>
+    <a class="brand" href="#inicio">☾ LUNAR<span>.</span></a>
+    <p>Explorando nuestro universo, una pregunta a la vez.</p>
+    <span>PROYECTO EDUCATIVO · ASTRONOMÍA</span>
   </footer>
-
 </body>
 </html>
