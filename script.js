@@ -1,30 +1,43 @@
+/* ==========================================================
+   RELOJ SOLAR HORIZONTAL · CBTis No. 4
+   Interactividad principal
+   JavaScript nativo · Sin dependencias
+   ========================================================== */
+
 "use strict";
 
 document.addEventListener("DOMContentLoaded", () => {
-  // =====================================================
-  // 1. MENÚ RESPONSIVE
-  // =====================================================
+
+  // ========================================================
+  // 1. MENÚ DE NAVEGACIÓN PARA MÓVILES
+  // ========================================================
 
   const botonMenu = document.getElementById("menu-toggle");
   const navegacion = document.getElementById("navegacion");
 
   if (botonMenu && navegacion) {
-    function cerrarMenu() {
+
+    const cerrarMenu = () => {
       navegacion.classList.remove("abierto");
       botonMenu.setAttribute("aria-expanded", "false");
       botonMenu.setAttribute("aria-label", "Abrir menú");
-      botonMenu.textContent = "☰";
-    }
+    };
 
     botonMenu.addEventListener("click", () => {
-      const abierto = navegacion.classList.toggle("abierto");
+      const estaAbierto =
+        botonMenu.getAttribute("aria-expanded") === "true";
 
-      botonMenu.setAttribute("aria-expanded", String(abierto));
+      navegacion.classList.toggle("abierto", !estaAbierto);
+
+      botonMenu.setAttribute(
+        "aria-expanded",
+        String(!estaAbierto)
+      );
+
       botonMenu.setAttribute(
         "aria-label",
-        abierto ? "Cerrar menú" : "Abrir menú"
+        estaAbierto ? "Abrir menú" : "Cerrar menú"
       );
-      botonMenu.textContent = abierto ? "✕" : "☰";
     });
 
     navegacion.querySelectorAll("a").forEach((enlace) => {
@@ -32,269 +45,234 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.addEventListener("keydown", (evento) => {
-      if (evento.key === "Escape") cerrarMenu();
+      if (evento.key === "Escape") {
+        cerrarMenu();
+        botonMenu.focus();
+      }
+    });
+
+    document.addEventListener("click", (evento) => {
+      if (
+        botonMenu.getAttribute("aria-expanded") === "true" &&
+        !navegacion.contains(evento.target) &&
+        !botonMenu.contains(evento.target)
+      ) {
+        cerrarMenu();
+      }
     });
 
     window.addEventListener("resize", () => {
-      if (window.innerWidth > 780) cerrarMenu();
+      if (window.innerWidth > 760) {
+        cerrarMenu();
+      }
     });
   }
 
-  // =====================================================
-  // 2. SIMULADOR DEL RELOJ SOLAR
-  // =====================================================
+
+  // ========================================================
+  // 2. SIMULADOR DE SOMBRA
+  // ========================================================
 
   const controlHora = document.getElementById("control-hora");
-  const textoHora = document.getElementById("hora-texto");
-  const sombra = document.getElementById("sombra-simulada");
-  const marcas = document.getElementById("marcas-reloj");
-  const etiquetas = document.getElementById("etiquetas-reloj");
-  const reiniciar = document.getElementById("reiniciar-hora");
+  const horaTexto = document.getElementById("hora-texto");
+  const sombra = document.getElementById("sombra-svg");
+  const botonReiniciar = document.getElementById("reiniciar-hora");
 
-  const SVG_NS = "http://www.w3.org/2000/svg";
-  const CX = 200;
-  const CY = 200;
+  /*
+    Este dibujo es un modelo visual esquemático.
 
-  function crearElementoSVG(nombre, atributos) {
-    const elemento = document.createElementNS(SVG_NS, nombre);
+    No calcula la posición astronómica real del Sol:
+    para ello necesitaríamos incorporar la fecha, las
+    coordenadas geográficas y un modelo solar adecuado.
 
-    Object.entries(atributos).forEach(([clave, valor]) => {
-      elemento.setAttribute(clave, String(valor));
-    });
+    Aquí la sombra cambia de dirección y longitud al
+    modificar la hora para explicar visualmente el concepto.
+  */
 
-    return elemento;
-  }
+  function formatearHora(valor) {
+    const horas = Math.floor(valor);
+    const minutos = Math.round((valor - horas) * 60);
 
-  // Crear marcas horarias alrededor de la esfera.
-  if (marcas && etiquetas) {
-    for (let hora = 0; hora < 24; hora++) {
-      const angulo = (hora * 15 - 90) * Math.PI / 180;
-      const esHoraPrincipal = hora % 3 === 0;
+    const horaFinal = String(horas).padStart(2, "0");
+    const minutoFinal = String(minutos).padStart(2, "0");
 
-      const radioExterior = 157;
-      const radioInterior = esHoraPrincipal ? 140 : 148;
-
-      const x1 = CX + Math.cos(angulo) * radioInterior;
-      const y1 = CY + Math.sin(angulo) * radioInterior;
-      const x2 = CX + Math.cos(angulo) * radioExterior;
-      const y2 = CY + Math.sin(angulo) * radioExterior;
-
-      marcas.appendChild(
-        crearElementoSVG("line", {
-          x1, y1, x2, y2,
-          stroke: esHoraPrincipal ? "#e5c780" : "#68819a",
-          "stroke-width": esHoraPrincipal ? 2 : 1,
-          opacity: esHoraPrincipal ? 1 : 0.65
-        })
-      );
-
-      if (hora % 3 === 0) {
-        const radioTexto = 124;
-        const tx = CX + Math.cos(angulo) * radioTexto;
-        const ty = CY + Math.sin(angulo) * radioTexto + 4;
-
-        const texto = crearElementoSVG("text", {
-          x: tx,
-          y: ty,
-          fill: "#e4d5b4",
-          "font-size": 11,
-          "text-anchor": "middle"
-        });
-
-        texto.textContent = String(hora).padStart(2, "0");
-        etiquetas.appendChild(texto);
-      }
-    }
-  }
-
-  function formatoHora(valor) {
-    let horas = Math.floor(valor);
-    let minutos = Math.round((valor - horas) * 60);
-
-    if (minutos >= 60) {
-      horas++;
-      minutos = 0;
-    }
-
-    return (
-      String(horas).padStart(2, "0") +
-      ":" +
-      String(minutos).padStart(2, "0")
-    );
+    return `${horaFinal}:${minutoFinal}`;
   }
 
   function actualizarSimulador() {
-    if (!controlHora || !textoHora || !sombra) return;
+    if (!controlHora) return;
 
     const hora = Number(controlHora.value);
-    textoHora.textContent = formatoHora(hora);
 
-    // Modelo ilustrativo: cambia la dirección y la longitud
-    // de la sombra según la hora seleccionada.
-    const desplazamiento = hora - 12;
-    const angulo = (desplazamiento * 15 - 90) * Math.PI / 180;
-    const distancia = 48 + Math.abs(desplazamiento) * 5;
+    if (!Number.isFinite(hora)) return;
 
-    const finalX = CX + Math.cos(angulo) * distancia;
-    const finalY = CY + Math.sin(angulo) * distancia;
+    if (horaTexto) {
+      horaTexto.textContent = formatearHora(hora);
+    }
 
-    sombra.setAttribute(
-      "d",
-      `M ${CX} ${CY} L ${finalX} ${finalY}`
-    );
+    if (sombra) {
+      /*
+        Centro del cuadrante:
+        x = 200, y = 235.
 
-    sombra.setAttribute(
-      "opacity",
-      String(Math.max(0.35, 0.95 - Math.abs(desplazamiento) * 0.045))
-    );
+        La sombra se representa mediante una línea
+        cuya dirección cambia durante el día.
+      */
 
-    sombra.setAttribute(
-      "stroke-width",
-      String(Math.max(4, 10 - Math.abs(desplazamiento) * 0.25))
-    );
+      const proporcion = (hora - 6) / 12;
+      const angulo = (proporcion - 0.5) * Math.PI;
+
+      const longitud = 35 + 48 * Math.abs(Math.cos(angulo));
+
+      const xFinal = 200 + Math.sin(angulo) * longitud;
+      const yFinal = 235 - Math.cos(angulo) * longitud;
+
+      sombra.setAttribute(
+        "d",
+        `M 200 235 L ${xFinal.toFixed(2)} ${yFinal.toFixed(2)}`
+      );
+
+      /*
+        Cerca del mediodía ilustrativo, la sombra
+        aparece más corta. Es una simplificación visual,
+        no una predicción astronómica.
+      */
+
+      const distanciaAlMediodia = Math.abs(hora - 12);
+      const opacidad = 0.55 + 0.4 *
+        (distanciaAlMediodia / 6);
+
+      sombra.setAttribute(
+        "opacity",
+        String(Math.min(0.95, opacidad))
+      );
+    }
   }
 
   if (controlHora) {
-    controlHora.addEventListener("input", actualizarSimulador);
+    controlHora.addEventListener(
+      "input",
+      actualizarSimulador
+    );
+
     actualizarSimulador();
   }
 
-  if (reiniciar && controlHora) {
-    reiniciar.addEventListener("click", () => {
+  if (botonReiniciar && controlHora) {
+    botonReiniciar.addEventListener("click", () => {
       controlHora.value = "12";
       actualizarSimulador();
     });
   }
 
-  // =====================================================
-  // 3. BUSCADOR DEL GLOSARIO
-  // =====================================================
+
+  // ========================================================
+  // 3. BÚSQUEDA DEL GLOSARIO
+  // ========================================================
 
   const buscador = document.getElementById("buscar-concepto");
-  const listaGlosario = document.getElementById("glosario-lista");
-  const mensajeVacio = document.getElementById(
-    "mensaje-sin-resultados"
-  );
+  const glosario = document.getElementById("glosario-lista");
 
-  function normalizarTexto(texto) {
-    return texto
-      .toLocaleLowerCase("es")
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "");
-  }
-
-  if (buscador && listaGlosario && mensajeVacio) {
+  if (buscador && glosario) {
     const conceptos = Array.from(
-      listaGlosario.querySelectorAll(".concepto")
+      glosario.querySelectorAll(".concepto")
     );
 
+    let mensajeSinResultados = document.getElementById(
+      "mensaje-sin-resultados"
+    );
+
+    if (!mensajeSinResultados) {
+      mensajeSinResultados = document.createElement("p");
+      mensajeSinResultados.id = "mensaje-sin-resultados";
+      mensajeSinResultados.className = "mensaje-busqueda";
+      mensajeSinResultados.textContent =
+        "No se encontraron conceptos que coincidan con tu búsqueda.";
+
+      mensajeSinResultados.hidden = true;
+
+      glosario.insertAdjacentElement(
+        "afterend",
+        mensajeSinResultados
+      );
+    }
+
+    function normalizarTexto(texto) {
+      return texto
+        .toLocaleLowerCase("es")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .trim();
+    }
+
     buscador.addEventListener("input", () => {
-      const consulta = normalizarTexto(buscador.value.trim());
-      let encontrados = 0;
+      const consulta = normalizarTexto(buscador.value);
+      let visibles = 0;
 
       conceptos.forEach((concepto) => {
-        const contenido = normalizarTexto(concepto.textContent);
-        const coincide = contenido.includes(consulta);
+        const texto = normalizarTexto(concepto.textContent);
+        const coincide = texto.includes(consulta);
 
         concepto.hidden = !coincide;
 
-        if (coincide) encontrados++;
+        if (coincide) {
+          visibles++;
+        }
       });
 
-      mensajeVacio.hidden = encontrados > 0;
+      mensajeSinResultados.hidden = visibles > 0;
     });
   }
 
-  // =====================================================
-  // 4. ANIMACIONES AL DESPLAZARSE
-  // =====================================================
 
-  const elementosAnimados = document.querySelectorAll(
-    ".tarjeta, .foto-tarjeta, .ciencia-card, " +
-    ".panel-gnomon, .evento-historico, .galeria-elemento, " +
-    ".concepto, .cita-ciencia"
+  // ========================================================
+  // 4. COMPROBACIÓN DE LAS 28 IMÁGENES
+  // ========================================================
+
+  const imagenesGaleria = document.querySelectorAll(
+    "#galeria-imagenes img"
   );
 
-  const movimientoReducido = window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
-  ).matches;
-
-  if ("IntersectionObserver" in window && !movimientoReducido) {
-    const observador = new IntersectionObserver(
-      (entradas, observer) => {
-        entradas.forEach((entrada) => {
-          if (entrada.isIntersecting) {
-            entrada.target.classList.add("visible");
-            observer.unobserve(entrada.target);
-          }
-        });
-      },
-      { threshold: 0.08 }
-    );
-
-    elementosAnimados.forEach((elemento) => {
-      elemento.classList.add("revelar");
-      observador.observe(elemento);
-    });
-  }
-
-  // =====================================================
-  // 5. CONTROL DE LAS 28 FOTOGRAFÍAS
-  // =====================================================
-
-  const imagenes = document.querySelectorAll("img");
-  let imagenesCargadas = 0;
-
-  imagenes.forEach((imagen) => {
-    const marcarCarga = () => {
-      imagenesCargadas++;
-      imagen.classList.add("imagen-cargada");
-    };
-
-    if (imagen.complete && imagen.naturalWidth > 0) {
-      marcarCarga();
-    } else {
-      imagen.addEventListener("load", marcarCarga, { once: true });
-    }
+  imagenesGaleria.forEach((imagen) => {
 
     imagen.addEventListener("error", () => {
       imagen.classList.add("imagen-no-disponible");
-      imagen.setAttribute(
-        "title",
-        "No se encontró esta imagen. Revisa su nombre y ubicación."
-      );
-    }, { once: true });
+      imagen.dataset.errorImagen = "true";
+
+      /*
+        No ocultamos automáticamente las fotografías
+        que fallan: así es más fácil detectar qué archivo
+        falta o qué nombre debe corregirse en GitHub.
+      */
+    });
+
+    imagen.addEventListener("load", () => {
+      imagen.classList.remove("imagen-no-disponible");
+      imagen.dataset.errorImagen = "false";
+    });
+
   });
 
-  // Contar los elementos de la galería.
-  const galeria = document.getElementById("galeria-imagenes");
-  const contador = document.getElementById("contador-imagenes");
 
-  if (galeria && contador) {
-    contador.textContent = String(
-      galeria.querySelectorAll(".galeria-elemento").length + 13
+  // ========================================================
+  // 5. AÑO ACTUAL, SI EXISTE EL ELEMENTO
+  // ========================================================
+
+  const anioActual = document.getElementById("anio-actual");
+
+  if (anioActual) {
+    anioActual.textContent = String(
+      new Date().getFullYear()
     );
   }
 
-  // =====================================================
-  // 6. AÑO AUTOMÁTICO DEL PIE DE PÁGINA
-  // =====================================================
 
-  const pie = document.querySelector(".pie");
-
-  if (pie) {
-    const marcaAnio = document.createElement("p");
-    marcaAnio.className = "pie-anio";
-    marcaAnio.textContent =
-      `© ${new Date().getFullYear()} · Proyecto educativo CBTis No. 4`;
-
-    pie.appendChild(marcaAnio);
-  }
-
-  // Activar los estilos que dependen de JavaScript.
-  document.documentElement.classList.add("js-activo");
+  // ========================================================
+  // 6. REGISTRO DE INICIALIZACIÓN
+  // ========================================================
 
   console.info(
-    "Reloj Solar CBTis No. 4: sitio inicializado correctamente."
+    "Reloj Solar CBTis No. 4: funciones inicializadas."
   );
+
 });
