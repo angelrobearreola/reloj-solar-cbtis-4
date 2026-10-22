@@ -4,453 +4,255 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#071426">
-  <meta name="description" content="Proyecto educativo del reloj solar horizontal del CBTis No. 4, Ciudad Lerdo, Durango.">
+  <meta name="description" content="Proyecto educativo sobre el reloj solar horizontal del CBTis No. 4, en Ciudad Lerdo, Durango.">
   <title>Reloj Solar Horizontal | CBTis No. 4</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/main.js" defer></script>
 </head>
-<body>
 
-<header class="encabezado" id="inicio">
-  <a class="marca" href="#inicio">
-    <span class="marca-icono">☼</span>
-    <span>
-      <strong>RELOJ SOLAR</strong>
-      <small>CBTis No. 4 · Ciudad Lerdo, Durango</small>
-    </span>
-  </a>
+<body id="inicio">
 
-  <button class="menu-toggle" id="menu-toggle"
-    aria-label="Abrir menú" aria-expanded="false">☰</button>
+  <header class="cabecera">
+    <div class="cabecera-interior">
+      <a class="marca" href="#inicio" aria-label="Inicio">
+        <span class="marca-icono" aria-hidden="true">☼</span>
+        <span>
+          <strong>CBTis No. 4</strong>
+          <small>Proyecto de reloj solar</small>
+        </span>
+      </a>
 
-  <nav class="navegacion" id="navegacion">
-    <a href="#inicio">Inicio</a>
-    <a href="#proyecto">Proyecto</a>
-    <a href="#funcionamiento">Funcionamiento</a>
-    <a href="#simulador">Simulador</a>
-    <a href="#historia">Historia</a>
-    <a href="#galeria">Galería</a>
-    <a href="#glosario">Glosario</a>
-  </nav>
-</header>
+      <nav class="navegacion" id="navegacion" aria-label="Navegación principal">
+        <a href="#inicio">Inicio</a>
+        <a href="#introduccion">Introducción</a>
+        <a href="#documentacion">Documentación</a>
+        <a href="#galeria">Galería</a>
+      </nav>
 
-<main>
-  <section class="portada">
-    <div class="portada-contenido">
-      <p class="etiqueta">ASTRONOMÍA · CIENCIA · GEOMETRÍA</p>
-      <h1>RELOJ SOLAR <span>HORIZONTAL</span></h1>
-      <p class="subtitulo">El tiempo escrito por la luz del Sol.</p>
-      <p class="descripcion">
-        Un recorrido por la ciencia, la historia y la geometría
-        de los relojes solares. Descubre cómo la sombra de un
-        gnomon permite interpretar el movimiento aparente del Sol.
-      </p>
-      <div class="acciones">
-        <a class="boton boton-dorado" href="#simulador">Explorar simulador</a>
-        <a class="boton boton-borde" href="#proyecto">Conocer el proyecto</a>
+      <button
+        class="boton-menu"
+        id="boton-menu"
+        type="button"
+        aria-controls="navegacion"
+        aria-expanded="false">
+        ☰ Menú
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-fondo" aria-hidden="true"></div>
+      <div class="hero-orbita" aria-hidden="true"></div>
+      <div class="hero-orbita orbita-dos" aria-hidden="true"></div>
+
+      <div class="hero-contenido">
+        <p class="sobrelinea">CIENCIA · ASTRONOMÍA · HISTORIA</p>
+
+        <h1>
+          RELOJ SOLAR
+          <span>HORIZONTAL</span>
+        </h1>
+
+        <p class="hero-subtitulo">
+          Un instrumento astronómico que permite comprender la relación
+          entre el Sol, las sombras y el paso del tiempo.
+        </p>
+
+        <p class="hero-lugar">
+          Centro de Bachillerato Tecnológico industrial y de servicios No. 4
+          · Ciudad Lerdo, Durango
+        </p>
+
+        <div class="hero-datos">
+          <div>
+            <span>PROYECTO</span>
+            <strong>Reloj solar</strong>
+          </div>
+          <div>
+            <span>ÁREA</span>
+            <strong>Astronomía</strong>
+          </div>
+          <div>
+            <span>INSTITUCIÓN</span>
+            <strong>CBTis No. 4</strong>
+          </div>
+        </div>
+
+        <a class="boton-principal" href="#documentacion">
+          Explorar documentación <span aria-hidden="true">→</span>
+        </a>
       </div>
-      <p class="lema">
-        COELESTIA MONSTRAT IN UMBRA<br>
-        <span>Con una sombra explico los cielos.</span>
-      </p>
-    </div>
+    </section>
 
-    <div class="portada-arte" aria-label="Ilustración de un reloj solar">
-      <div class="orbita orbita-1"></div>
-      <div class="orbita orbita-2"></div>
-      <div class="sol">☼</div>
-      <div class="reloj-ilustrado">
-        <div class="marca-hora hora-12">XII</div>
-        <div class="marca-hora hora-1">I</div>
-        <div class="marca-hora hora-2">II</div>
-        <div class="marca-hora hora-3">III</div>
-        <div class="marca-hora hora-4">IV</div>
-        <div class="marca-hora hora-5">V</div>
-        <div class="marca-hora hora-6">VI</div>
-        <div class="marca-hora hora-7">VII</div>
-        <div class="marca-hora hora-8">VIII</div>
-        <div class="marca-hora hora-9">IX</div>
-        <div class="marca-hora hora-10">X</div>
-        <div class="marca-hora hora-11">XI</div>
-        <div class="gnomon-ilustrado"></div>
-        <div class="sombra-ilustrada"></div>
-        <div class="centro-reloj"></div>
-      </div>
-      <p class="arte-pie">TIEMPO · LUZ · MOVIMIENTO</p>
-    </div>
-  </section>
+    <section class="intro wrap" id="introduccion">
+      <div class="intro-texto">
+        <p class="sobrelinea">CONOCIMIENTO Y OBSERVACIÓN</p>
+        <h2>El tiempo escrito por la luz del Sol</h2>
 
-  <section class="datos">
-    <article><span>⌖</span><div><strong>UBICACIÓN</strong><small>Ciudad Lerdo, Durango</small></div></article>
-    <article><span>◎</span><div><strong>LATITUD</strong><small>25°33′ Norte</small></div></article>
-    <article><span>◇</span><div><strong>LONGITUD</strong><small>103°26′ Oeste</small></div></article>
-    <article><span>☀</span><div><strong>ALTITUD</strong><small>1,122 m s. n. m.</small></div></article>
-  </section>
-
-  <section class="seccion" id="proyecto">
-    <div class="encabezado-seccion">
-      <p class="etiqueta">01 / EL PROYECTO</p>
-      <h2>Una manera diferente de observar el tiempo</h2>
-      <p>
-        El reloj solar horizontal es un instrumento que representa
-        la hora solar mediante la sombra que proyecta un gnomon
-        sobre una superficie con líneas horarias.
-      </p>
-    </div>
-
-    <div class="rejilla-tarjetas">
-      <article class="tarjeta">
-        <span class="numero">01</span>
-        <div class="tarjeta-icono">☀</div>
-        <h3>Astronomía</h3>
-        <p>Observa la posición aparente del Sol y su relación con el día y las estaciones.</p>
-      </article>
-      <article class="tarjeta">
-        <span class="numero">02</span>
-        <div class="tarjeta-icono">△</div>
-        <h3>Geometría</h3>
-        <p>Comprende la orientación del gnomon y la distribución de las líneas horarias.</p>
-      </article>
-      <article class="tarjeta">
-        <span class="numero">03</span>
-        <div class="tarjeta-icono">◷</div>
-        <h3>Medición del tiempo</h3>
-        <p>Explora las diferencias entre hora solar aparente y hora oficial.</p>
-      </article>
-    </div>
-
-    <div class="panel-destacado">
-      <div>
-        <p class="etiqueta">CIENCIA APLICADA</p>
-        <h3>Mirar el cielo para comprender la Tierra</h3>
         <p>
-          Este proyecto educativo reúne física, matemáticas,
-          geografía y astronomía. Su estudio permite analizar
-          cómo la luz, la orientación y el movimiento aparente
-          del Sol producen sombras que pueden utilizarse para
-          interpretar la hora solar.
+          El reloj solar es un instrumento que utiliza la posición aparente
+          del Sol y la sombra proyectada por un elemento llamado gnomon
+          para indicar la hora solar.
+        </p>
+
+        <p>
+          En esta página se presenta material educativo sobre los relojes
+          solares, su historia, sus componentes, sus principios geométricos
+          y los fenómenos astronómicos relacionados con ellos.
         </p>
       </div>
-      <div class="simbolo-grande">☼</div>
-    </div>
-  </section>
 
-  <section class="seccion seccion-oscura" id="funcionamiento">
-    <div class="encabezado-seccion">
-      <p class="etiqueta">02 / PRINCIPIOS FUNDAMENTALES</p>
-      <h2>¿Cómo funciona un reloj solar?</h2>
-      <p>Su funcionamiento se basa en la luz solar, la geometría del instrumento y la rotación terrestre.</p>
-    </div>
+      <div class="intro-sello">
+        <span aria-hidden="true">☼</span>
+        <strong>RELOJ SOLAR HORIZONTAL</strong>
+        <small>CBTis No. 4 · Ciudad Lerdo, Durango</small>
+      </div>
+    </section>
 
-    <div class="rejilla-tarjetas">
-      <article class="tarjeta">
-        <div class="tarjeta-icono">↗</div>
-        <h3>El gnomon</h3>
-        <p>Es el elemento cuya sombra se proyecta sobre el cuadrante. En un reloj horizontal correctamente diseñado, su orientación se relaciona con el eje de rotación terrestre.</p>
-      </article>
-      <article class="tarjeta">
-        <div class="tarjeta-icono">⌁</div>
-        <h3>El cuadrante</h3>
-        <p>Es la superficie que contiene las líneas horarias. La sombra del gnomon permite identificar la hora solar aparente.</p>
-      </article>
-      <article class="tarjeta">
-        <div class="tarjeta-icono">↻</div>
-        <h3>La posición solar</h3>
-        <p>La posición aparente del Sol cambia durante el día. Por eso, la sombra modifica su dirección y longitud.</p>
-      </article>
-    </div>
+    <section class="contenido wrap" id="documentacion">
+      <div class="barra-herramientas">
+        <div>
+          <p class="sobrelinea">MATERIAL DE ESTUDIO</p>
+          <h2>Documentación del proyecto</h2>
+        </div>
 
-    <div class="texto-largo">
-      <h3>Hora solar y hora oficial</h3>
-      <p>
-        La hora solar está relacionada con la posición aparente del
-        Sol en el cielo. La hora oficial, en cambio, es la establecida
-        por las normas civiles y los husos horarios. Ambas no
-        coinciden necesariamente.
-      </p>
-      <p>
-        La diferencia depende, entre otros factores, de la longitud
-        geográfica, la ecuación del tiempo y las reglas de horario
-        aplicables a cada región.
-      </p>
-      <h3>La ecuación del tiempo</h3>
-      <p>
-        Es la diferencia entre el tiempo solar aparente y el tiempo
-        solar medio. Se debe principalmente a la excentricidad de la
-        órbita terrestre y a la inclinación del eje de rotación de la
-        Tierra respecto al plano de su órbita.
-      </p>
-      <h3>El movimiento aparente del Sol</h3>
-      <p>
-        La rotación terrestre hace que el Sol parezca desplazarse
-        por el cielo de este a oeste. Esta apariencia explica el
-        cambio de dirección de las sombras a lo largo del día.
-      </p>
-    </div>
-  </section>
-
-  <section class="seccion" id="simulador">
-    <div class="encabezado-seccion">
-      <p class="etiqueta">03 / LABORATORIO INTERACTIVO</p>
-      <h2>Simulador del reloj solar</h2>
-      <p>Mueve el control para explorar una representación geométrica de la sombra durante el día.</p>
-    </div>
-
-    <div class="simulador">
-      <div class="simulador-cabecera">
-        <span class="punto-verde"></span>
-        MODELO VISUAL EDUCATIVO
+        <label class="buscador">
+          <span aria-hidden="true">⌕</span>
+          <span class="solo-lector">Buscar en la documentación</span>
+          <input
+            type="search"
+            id="buscar"
+            placeholder="Buscar una palabra..."
+            autocomplete="off">
+        </label>
       </div>
 
-      <div class="escenario">
-        <svg id="reloj-svg" viewBox="0 0 400 400" role="img" aria-label="Reloj solar interactivo">
-          <defs>
-            <radialGradient id="brillo-sol">
-              <stop offset="0%" stop-color="#fff6c9"/>
-              <stop offset="100%" stop-color="#e8b64d"/>
-            </radialGradient>
-          </defs>
-
-          <circle cx="200" cy="200" r="160" fill="#10233b" stroke="#334b65" stroke-width="1"/>
-          <circle cx="200" cy="200" r="135" fill="none" stroke="#3c536b" stroke-dasharray="3 7"/>
-
-          <g stroke="#b1a06b" stroke-width="1.5" opacity=".8">
-            <line x1="200" y1="42" x2="200" y2="358"/>
-            <line x1="42" y1="200" x2="358" y2="200"/>
-            <line x1="88" y1="88" x2="312" y2="312"/>
-            <line x1="312" y1="88" x2="88" y2="312"/>
-            <line x1="140" y1="58" x2="260" y2="342"/>
-            <line x1="260" y1="58" x2="140" y2="342"/>
-          </g>
-
-          <g fill="#e7d7a4" font-size="12" text-anchor="middle">
-            <text x="200" y="31">XII</text>
-            <text x="283" y="54">II</text>
-            <text x="351" y="204">III</text>
-            <text x="283" y="354">IV</text>
-            <text x="200" y="379">VI</text>
-            <text x="48" y="204">IX</text>
-          </g>
-
-          <circle cx="200" cy="200" r="7" fill="#f2c96d"/>
-          <path id="sombra-svg" d="M200 200 L200 100"
-            stroke="#050b15" stroke-width="12" stroke-linecap="round"/>
-          <path id="gnomon-svg" d="M200 200 L200 145"
-            stroke="#f2c96d" stroke-width="6" stroke-linecap="round"/>
-          <circle cx="200" cy="200" r="4" fill="#fff2c2"/>
-          <circle cx="200" cy="200" r="145" fill="none" stroke="#f2c96d" stroke-width="1" opacity=".35"/>
-          <circle cx="200" cy="200" r="3" fill="#f2c96d"/>
-        </svg>
-      </div>
-
-      <div class="controles">
-        <div class="hora-actual">
-          <span>Hora seleccionada</span>
-          <strong id="hora-texto">12:00</strong>
-        </div>
-
-        <label for="control-hora">Modifica la hora solar simulada</label>
-        <input id="control-hora" type="range" min="6" max="18" step="0.25" value="12">
-
-        <div class="rango-horas">
-          <span>06:00</span>
-          <span>12:00</span>
-          <span>18:00</span>
-        </div>
-
-        <button class="boton boton-dorado" id="reiniciar-hora" type="button">
-          Reiniciar simulación
-        </button>
-
-        <p class="nota">
-          Nota: la gráfica es una representación didáctica. No calcula
-          efemérides astronómicas ni predice la sombra real para una
-          fecha y ubicación específicas.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <section class="seccion seccion-oscura" id="historia">
-    <div class="encabezado-seccion">
-      <p class="etiqueta">04 / PERSPECTIVA HISTÓRICA</p>
-      <h2>El tiempo a través de los siglos</h2>
-      <p>Los relojes solares forman parte de una larga historia de observación del cielo y medición del tiempo.</p>
-    </div>
-
-    <div class="linea-tiempo">
-      <article>
-        <span class="fecha">Antigüedad</span>
-        <div class="punto-tiempo"></div>
-        <div class="contenido-tiempo">
-          <h3>Primeras observaciones</h3>
-          <p>Las sociedades antiguas utilizaron sombras y observaciones celestes para organizar actividades y reconocer partes del día.</p>
-        </div>
-      </article>
-
-      <article>
-        <span class="fecha">Mundo romano</span>
-        <div class="punto-tiempo"></div>
-        <div class="contenido-tiempo">
-          <h3>Difusión de los relojes solares</h3>
-          <p>Los relojes solares se utilizaron en espacios públicos y privados para indicar la hora solar.</p>
-        </div>
-      </article>
-
-      <article>
-        <span class="fecha">Edad Media</span>
-        <div class="punto-tiempo"></div>
-        <div class="contenido-tiempo">
-          <h3>Uso cotidiano y religioso</h3>
-          <p>Distintos modelos ayudaron a organizar actividades diarias y momentos de oración.</p>
-        </div>
-      </article>
-
-      <article>
-        <span class="fecha">Renacimiento</span>
-        <div class="punto-tiempo"></div>
-        <div class="contenido-tiempo">
-          <h3>Geometría y precisión</h3>
-          <p>El desarrollo de las matemáticas y la astronomía favoreció el diseño de instrumentos solares más elaborados.</p>
-        </div>
-      </article>
-
-      <article>
-        <span class="fecha">Época moderna</span>
-        <div class="punto-tiempo"></div>
-        <div class="contenido-tiempo">
-          <h3>Del Sol a los relojes mecánicos</h3>
-          <p>Los relojes mecánicos y los sistemas modernos de tiempo redujeron la dependencia de la observación directa del Sol.</p>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <section class="seccion" id="galeria">
-    <div class="encabezado-seccion">
-      <p class="etiqueta">05 / OBSERVACIÓN VISUAL</p>
-      <h2>Galería del proyecto</h2>
-      <p>Añade fotografías auténticas del reloj solar, su construcción, sus detalles y las actividades educativas.</p>
-    </div>
-
-    <div class="galeria">
-      <figure class="galeria-elemento galeria-principal">
-        <div class="imagen-placeholder">☼</div>
-        <figcaption>
-          <strong>El reloj solar</strong>
-          <span>Vista general del instrumento</span>
-        </figcaption>
-      </figure>
-
-      <figure class="galeria-elemento">
-        <div class="imagen-placeholder">△</div>
-        <figcaption>
-          <strong>El gnomon</strong>
-          <span>Elemento que proyecta la sombra</span>
-        </figcaption>
-      </figure>
-
-      <figure class="galeria-elemento">
-        <div class="imagen-placeholder">⌁</div>
-        <figcaption>
-          <strong>Líneas horarias</strong>
-          <span>Geometría del cuadrante</span>
-        </figcaption>
-      </figure>
-
-      <figure class="galeria-elemento">
-        <div class="imagen-placeholder">◎</div>
-        <figcaption>
-          <strong>Observación solar</strong>
-          <span>La luz y el movimiento aparente</span>
-        </figcaption>
-      </figure>
-    </div>
-
-    <p class="nota">
-      Los símbolos son marcadores provisionales. Para mostrar las fotografías
-      reales, coloca tus imágenes en una carpeta llamada <strong>images</strong>
-      y reemplaza estos bloques por etiquetas <code>&lt;img&gt;</code>.
-    </p>
-  </section>
-
-  <section class="seccion seccion-oscura" id="glosario">
-    <div class="encabezado-seccion">
-      <p class="etiqueta">06 / CONCEPTOS CLAVE</p>
-      <h2>Glosario astronómico</h2>
-      <p>Consulta algunos términos fundamentales para comprender el funcionamiento del reloj solar.</p>
-    </div>
-
-    <label class="buscador-etiqueta" for="buscar-concepto">Buscar un concepto</label>
-    <input class="buscador" id="buscar-concepto" type="search"
-      placeholder="Escribe gnomon, sombra, hora solar...">
-
-    <div class="glosario-lista" id="glosario-lista">
-      <article class="concepto">
-        <h3>Gnomon</h3>
-        <p>Elemento del reloj solar cuya sombra permite indicar la hora.</p>
-      </article>
-      <article class="concepto">
-        <h3>Cuadrante</h3>
-        <p>Superficie del instrumento donde se trazan las líneas horarias.</p>
-      </article>
-      <article class="concepto">
-        <h3>Hora solar aparente</h3>
-        <p>Tiempo relacionado con la posición aparente del Sol en el cielo.</p>
-      </article>
-      <article class="concepto">
-        <h3>Hora solar media</h3>
-        <p>Tiempo basado en el movimiento de un Sol medio idealizado, utilizado para uniformar la duración de los días solares.</p>
-      </article>
-      <article class="concepto">
-        <h3>Ecuación del tiempo</h3>
-        <p>Diferencia entre el tiempo solar aparente y el tiempo solar medio.</p>
-      </article>
-      <article class="concepto">
-        <h3>Declinación solar</h3>
-        <p>Ángulo que describe la posición del Sol al norte o al sur del ecuador celeste.</p>
-      </article>
-      <article class="concepto">
-        <h3>Acimut solar</h3>
-        <p>Ángulo horizontal que describe la dirección del Sol respecto a una referencia definida.</p>
-      </article>
-      <article class="concepto">
-        <h3>Fotoperiodo</h3>
-        <p>Duración de la iluminación diaria recibida en un lugar.</p>
-      </article>
-      <article class="concepto">
-        <h3>Solsticio</h3>
-        <p>Momento del año en que la declinación solar alcanza uno de sus extremos anuales.</p>
-      </article>
-      <article class="concepto">
-        <h3>Equinoccio</h3>
-        <p>Momento del año en que el Sol cruza el ecuador celeste.</p>
-      </article>
-    </div>
-  </section>
-
-  <section class="seccion">
-    <div class="cierre">
-      <span class="cierre-sol">☼</span>
-      <p class="etiqueta">CIENCIA QUE DEJA HUELLA</p>
-      <h2>Una sombra. Un instrumento. Un universo por descubrir.</h2>
-      <p>
-        El reloj solar nos recuerda que la observación de la naturaleza
-        puede convertirse en conocimiento mediante la ciencia y las matemáticas.
+      <p class="nota-original">
+        Consulta los temas y materiales del documento de referencia.
+        Utiliza el buscador para localizar palabras en las secciones.
       </p>
-      <a href="#inicio" class="boton boton-dorado">Volver al inicio ↑</a>
-    </div>
-  </section>
-</main>
 
-<footer class="pie">
-  <div>
-    <strong>RELOJ SOLAR HORIZONTAL</strong>
-    <p>CBTis No. 4 · Ciudad Lerdo, Durango, México</p>
-  </div>
-  <p>Proyecto educativo · 55.º aniversario</p>
-  <a href="#inicio">Regresar arriba ↑</a>
-</footer>
+      <p class="mensaje-busqueda" id="mensaje-busqueda" aria-live="polite"></p>
+
+      <div class="documento-grid">
+        <aside class="indice">
+          <h3>Contenido</h3>
+          <a href="#tema-1">1. Introducción al reloj solar</a>
+          <a href="#tema-2">2. Historia del reloj solar</a>
+          <a href="#tema-3">3. Clasificación de los relojes solares</a>
+          <a href="#tema-4">4. Partes del reloj solar</a>
+          <a href="#tema-5">5. Conceptos básicos</a>
+          <a href="#tema-6">6. Geometría y funcionamiento</a>
+          <a href="#tema-7">7. Analema</a>
+          <a href="#tema-8">8. Equinoccios y solsticios</a>
+          <a href="#galeria">Galería de imágenes</a>
+          <hr>
+          <a class="volver" href="#inicio">↑ Volver al inicio</a>
+          <p>Los temas sirven como índice de consulta del proyecto.</p>
+        </aside>
+
+        <div class="documento">
+          <article class="pagina-documento" id="tema-1">
+            <div class="pagina-etiqueta">TEMA 01</div>
+            <h2>Introducción al reloj solar</h2>
+            <div class="texto-original">El reloj solar es un instrumento que permite determinar la hora solar mediante la observación de la sombra que proyecta el Sol. Su funcionamiento está relacionado con el movimiento aparente del Sol en el cielo y con la orientación del instrumento.</div>
+          </article>
+
+          <article class="pagina-documento" id="tema-2">
+            <div class="pagina-etiqueta">TEMA 02</div>
+            <h2>Historia del reloj solar</h2>
+            <div class="texto-original">Los relojes solares forman parte de la historia de la medición del tiempo. A través de la observación de las sombras, distintas civilizaciones desarrollaron instrumentos para organizar actividades diarias y estudiar los movimientos aparentes del Sol.</div>
+          </article>
+
+          <article class="pagina-documento" id="tema-3">
+            <div class="pagina-etiqueta">TEMA 03</div>
+            <h2>Clasificación de los relojes solares</h2>
+            <div class="texto-original">Los relojes solares pueden clasificarse según la orientación de su superficie, la posición del gnomon y la forma en que se proyectan las sombras. El reloj solar horizontal utiliza una superficie colocada horizontalmente.</div>
+          </article>
+
+          <article class="pagina-documento" id="tema-4">
+            <div class="pagina-etiqueta">TEMA 04</div>
+            <h2>Partes del reloj solar</h2>
+            <div class="texto-original">Entre los elementos principales se encuentran la superficie o cuadrante, las líneas horarias y el gnomon, que proyecta una sombra sobre el cuadrante. La orientación y la inclinación del gnomon son importantes para el funcionamiento del instrumento.</div>
+          </article>
+
+          <article class="pagina-documento" id="tema-5">
+            <div class="pagina-etiqueta">TEMA 05</div>
+            <h2>Conceptos básicos</h2>
+            <div class="texto-original">Para estudiar un reloj solar es necesario comprender conceptos como hora solar, latitud geográfica, orientación, sombra, gnomon y movimiento aparente del Sol. Estos conceptos ayudan a interpretar las marcas horarias del cuadrante.</div>
+          </article>
+
+          <article class="pagina-documento" id="tema-6">
+            <div class="pagina-etiqueta">TEMA 06</div>
+            <h2>Geometría y funcionamiento</h2>
+            <div class="texto-original">La distribución de las líneas horarias depende de la geometría del reloj y de su ubicación geográfica. Para diseñar un reloj solar horizontal deben considerarse la latitud del lugar y la orientación correcta del gnomon.</div>
+          </article>
+
+          <article class="pagina-documento" id="tema-7">
+            <div class="pagina-etiqueta">TEMA 07</div>
+            <h2>El analema</h2>
+            <div class="texto-original">El analema es una curva que puede representar la posición aparente del Sol a una misma hora media durante diferentes días del año. Su forma se relaciona con la inclinación del eje terrestre y con la variación de la velocidad orbital aparente del Sol.</div>
+          </article>
+
+          <article class="pagina-documento" id="tema-8">
+            <div class="pagina-etiqueta">TEMA 08</div>
+            <h2>Equinoccios y solsticios</h2>
+            <div class="texto-original">Los equinoccios y los solsticios son momentos del año relacionados con la posición aparente del Sol y la inclinación del eje terrestre. Estos fenómenos permiten comprender los cambios estacionales en la duración del día y la noche.</div>
+          </article>
+
+          <article class="pagina-documento" id="galeria">
+            <div class="pagina-etiqueta">GALERÍA</div>
+            <h2>Imágenes del material de referencia</h2>
+            <p>
+              Guarda las imágenes extraídas del documento PDF dentro de
+              la carpeta <strong>images</strong> y agrega aquí sus nombres.
+            </p>
+
+            <div class="galeria-pagina">
+              <figure class="imagen-original">
+                <img src="images/pdf-imagen-104.jpeg"
+                     alt="Ilustración del material de referencia"
+                     loading="lazy">
+                <figcaption>Imagen del documento de referencia</figcaption>
+              </figure>
+
+              <figure class="imagen-original">
+                <img src="images/pdf-imagen-152.jpeg"
+                     alt="Segunda ilustración del material de referencia"
+                     loading="lazy">
+                <figcaption>Ilustración astronómica</figcaption>
+              </figure>
+
+              <figure class="imagen-original">
+                <img src="images/pdf-imagen-27.jpeg"
+                     alt="Tercera ilustración del material de referencia"
+                     loading="lazy">
+                <figcaption>Material visual del proyecto</figcaption>
+              </figure>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <div class="wrap">
+      <div class="pie-interior">
+        <div>
+          <span class="pie-sol" aria-hidden="true">☼</span>
+          <strong>RELOJ SOLAR · CBTis No. 4</strong>
+          <p>Proyecto educativo · Ciudad Lerdo, Durango</p>
+        </div>
+        <a href="#inicio">Volver al inicio ↑</a>
+      </div>
+
+      <div class="pie-final">
+        Sitio educativo dedicado al estudio del reloj solar horizontal.
+      </div>
+    </div>
+  </footer>
 
 </body>
-</html>
+                                                   </html>
