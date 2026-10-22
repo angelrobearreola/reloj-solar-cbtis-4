@@ -1,278 +1,268 @@
-/* ==========================================================
-   RELOJ SOLAR HORIZONTAL · CBTis No. 4
-   Interactividad principal
-   JavaScript nativo · Sin dependencias
-   ========================================================== */
+
+// ================================================
+// LUNAR — MOTOR INTERACTIVO
+// JavaScript nativo · Sin dependencias
+// ================================================
 
 "use strict";
 
 document.addEventListener("DOMContentLoaded", () => {
+  const moon = document.getElementById("moon");
+  const moonShadow = document.getElementById("moonShadow");
 
-  // ========================================================
-  // 1. MENÚ DE NAVEGACIÓN PARA MÓVILES
-  // ========================================================
+  // ----------------------------------------------
+  // 1. ANIMACIÓN DE LA LUNA PRINCIPAL
+  // ----------------------------------------------
 
-  const botonMenu = document.getElementById("menu-toggle");
-  const navegacion = document.getElementById("navegacion");
+  let rotation = 0;
+  let previousTime = 0;
 
-  if (botonMenu && navegacion) {
+  function animateMoon(time) {
+    if (previousTime === 0) previousTime = time;
 
-    const cerrarMenu = () => {
-      navegacion.classList.remove("abierto");
-      botonMenu.setAttribute("aria-expanded", "false");
-      botonMenu.setAttribute("aria-label", "Abrir menú");
-    };
+    const delta = Math.min(time - previousTime, 50);
+    previousTime = time;
 
-    botonMenu.addEventListener("click", () => {
-      const estaAbierto =
-        botonMenu.getAttribute("aria-expanded") === "true";
+    rotation = (rotation + delta * 0.004) % 360;
 
-      navegacion.classList.toggle("abierto", !estaAbierto);
+    if (moon) {
+      moon.style.setProperty("--moon-rotation", `${rotation}deg`);
+    }
 
-      botonMenu.setAttribute(
-        "aria-expanded",
-        String(!estaAbierto)
-      );
+    requestAnimationFrame(animateMoon);
+  }
 
-      botonMenu.setAttribute(
-        "aria-label",
-        estaAbierto ? "Abrir menú" : "Cerrar menú"
-      );
-    });
+  // La textura gira lentamente para simular movimiento.
+  if (moon) {
+    const texture = moon.querySelector(".moon-texture");
 
-    navegacion.querySelectorAll("a").forEach((enlace) => {
-      enlace.addEventListener("click", cerrarMenu);
-    });
+    if (texture) {
+      texture.style.animationDuration = "100s";
+    }
 
-    document.addEventListener("keydown", (evento) => {
-      if (evento.key === "Escape") {
-        cerrarMenu();
-        botonMenu.focus();
+    requestAnimationFrame(animateMoon);
+  }
+
+  // ----------------------------------------------
+  // 2. FASES LUNARES INTERACTIVAS
+  // ----------------------------------------------
+
+  const phases = [
+    {
+      name: "Luna nueva",
+      description:
+        "La cara iluminada mira principalmente hacia el Sol y la cara nocturna hacia la Tierra.",
+      emoji: "🌑",
+      illumination: 0
+    },
+    {
+      name: "Luna creciente",
+      description:
+        "Una pequeña franja iluminada empieza a ser visible desde la Tierra.",
+      emoji: "🌒",
+      illumination: 0.15
+    },
+    {
+      name: "Cuarto creciente",
+      description:
+        "Vemos aproximadamente la mitad del disco lunar iluminado.",
+      emoji: "🌓",
+      illumination: 0.5
+    },
+    {
+      name: "Gibosa creciente",
+      description:
+        "Más de la mitad de la cara visible está iluminada y se aproxima la Luna llena.",
+      emoji: "🌔",
+      illumination: 0.8
+    },
+    {
+      name: "Luna llena",
+      description:
+        "La cara lunar orientada hacia la Tierra aparece casi completamente iluminada.",
+      emoji: "🌕",
+      illumination: 1
+    },
+    {
+      name: "Gibosa menguante",
+      description:
+        "Después de la Luna llena, la parte iluminada que vemos comienza a disminuir.",
+      emoji: "🌖",
+      illumination: 0.8
+    },
+    {
+      name: "Cuarto menguante",
+      description:
+        "Vemos aproximadamente la mitad del disco lunar iluminado, en la etapa menguante.",
+      emoji: "🌗",
+      illumination: 0.5
+    },
+    {
+      name: "Luna menguante",
+      description:
+        "Solo queda una franja iluminada antes de comenzar un nuevo ciclo.",
+      emoji: "🌘",
+      illumination: 0.15
+    }
+  ];
+
+  const phaseMoon = document.getElementById("phaseMoon");
+  const phaseLit = document.getElementById("phaseLit");
+  const phaseName = document.getElementById("phaseName");
+  const phaseDescription = document.getElementById("phaseDescription");
+  const phaseCounter = document.getElementById("phaseCounter");
+  const phaseOptions = document.querySelectorAll(".phase-option");
+  const prevButton = document.getElementById("prevPhase");
+  const nextButton = document.getElementById("nextPhase");
+
+  let currentPhase = 0;
+
+  function renderPhase(index) {
+    currentPhase = (index + phases.length) % phases.length;
+
+    const phase = phases[currentPhase];
+
+    if (phaseName) {
+      phaseName.textContent = phase.name;
+    }
+
+    if (phaseDescription) {
+      phaseDescription.textContent = phase.description;
+    }
+
+    if (phaseCounter) {
+      phaseCounter.textContent =
+        `FASE ${String(currentPhase + 1).padStart(2, "0")} / 08`;
+    }
+
+    if (phaseMoon) {
+      phaseMoon.setAttribute("aria-label", phase.name);
+    }
+
+    // Simula la superficie iluminada mediante una elipse.
+    // Es una representación didáctica, no una efeméride real.
+    if (phaseLit) {
+      const isWaxing = currentPhase <= 3;
+      const illumination = phase.illumination;
+
+      let width = illumination * 100;
+      let position = isWaxing ? 100 : 0;
+
+      if (currentPhase === 0) {
+        width = 0;
+        position = 50;
+      } else if (currentPhase === 4) {
+        width = 100;
+        position = 50;
+      } else if (currentPhase === 2 || currentPhase === 6) {
+        width = 50;
+        position = 50;
+      }
+
+      phaseLit.style.clipPath =
+        `ellipse(${width / 2}% 50% at ${position}% 50%)`;
+
+      phaseLit.style.backgroundColor = "#e5e1d5";
+    }
+
+    phaseOptions.forEach((option, optionIndex) => {
+      const selected = optionIndex === currentPhase;
+
+      option.classList.toggle("active", selected);
+
+      if (selected) {
+        option.setAttribute("aria-current", "true");
+      } else {
+        option.removeAttribute("aria-current");
       }
     });
+  }
 
-    document.addEventListener("click", (evento) => {
-      if (
-        botonMenu.getAttribute("aria-expanded") === "true" &&
-        !navegacion.contains(evento.target) &&
-        !botonMenu.contains(evento.target)
-      ) {
-        cerrarMenu();
+  phaseOptions.forEach((option) => {
+    option.addEventListener("click", () => {
+      const index = Number(option.dataset.phase);
+
+      if (Number.isInteger(index) && index >= 0 && index < phases.length) {
+        renderPhase(index);
       }
     });
-
-    window.addEventListener("resize", () => {
-      if (window.innerWidth > 760) {
-        cerrarMenu();
-      }
-    });
-  }
-
-
-  // ========================================================
-  // 2. SIMULADOR DE SOMBRA
-  // ========================================================
-
-  const controlHora = document.getElementById("control-hora");
-  const horaTexto = document.getElementById("hora-texto");
-  const sombra = document.getElementById("sombra-svg");
-  const botonReiniciar = document.getElementById("reiniciar-hora");
-
-  /*
-    Este dibujo es un modelo visual esquemático.
-
-    No calcula la posición astronómica real del Sol:
-    para ello necesitaríamos incorporar la fecha, las
-    coordenadas geográficas y un modelo solar adecuado.
-
-    Aquí la sombra cambia de dirección y longitud al
-    modificar la hora para explicar visualmente el concepto.
-  */
-
-  function formatearHora(valor) {
-    const horas = Math.floor(valor);
-    const minutos = Math.round((valor - horas) * 60);
-
-    const horaFinal = String(horas).padStart(2, "0");
-    const minutoFinal = String(minutos).padStart(2, "0");
-
-    return `${horaFinal}:${minutoFinal}`;
-  }
-
-  function actualizarSimulador() {
-    if (!controlHora) return;
-
-    const hora = Number(controlHora.value);
-
-    if (!Number.isFinite(hora)) return;
-
-    if (horaTexto) {
-      horaTexto.textContent = formatearHora(hora);
-    }
-
-    if (sombra) {
-      /*
-        Centro del cuadrante:
-        x = 200, y = 235.
-
-        La sombra se representa mediante una línea
-        cuya dirección cambia durante el día.
-      */
-
-      const proporcion = (hora - 6) / 12;
-      const angulo = (proporcion - 0.5) * Math.PI;
-
-      const longitud = 35 + 48 * Math.abs(Math.cos(angulo));
-
-      const xFinal = 200 + Math.sin(angulo) * longitud;
-      const yFinal = 235 - Math.cos(angulo) * longitud;
-
-      sombra.setAttribute(
-        "d",
-        `M 200 235 L ${xFinal.toFixed(2)} ${yFinal.toFixed(2)}`
-      );
-
-      /*
-        Cerca del mediodía ilustrativo, la sombra
-        aparece más corta. Es una simplificación visual,
-        no una predicción astronómica.
-      */
-
-      const distanciaAlMediodia = Math.abs(hora - 12);
-      const opacidad = 0.55 + 0.4 *
-        (distanciaAlMediodia / 6);
-
-      sombra.setAttribute(
-        "opacity",
-        String(Math.min(0.95, opacidad))
-      );
-    }
-  }
-
-  if (controlHora) {
-    controlHora.addEventListener(
-      "input",
-      actualizarSimulador
-    );
-
-    actualizarSimulador();
-  }
-
-  if (botonReiniciar && controlHora) {
-    botonReiniciar.addEventListener("click", () => {
-      controlHora.value = "12";
-      actualizarSimulador();
-    });
-  }
-
-
-  // ========================================================
-  // 3. BÚSQUEDA DEL GLOSARIO
-  // ========================================================
-
-  const buscador = document.getElementById("buscar-concepto");
-  const glosario = document.getElementById("glosario-lista");
-
-  if (buscador && glosario) {
-    const conceptos = Array.from(
-      glosario.querySelectorAll(".concepto")
-    );
-
-    let mensajeSinResultados = document.getElementById(
-      "mensaje-sin-resultados"
-    );
-
-    if (!mensajeSinResultados) {
-      mensajeSinResultados = document.createElement("p");
-      mensajeSinResultados.id = "mensaje-sin-resultados";
-      mensajeSinResultados.className = "mensaje-busqueda";
-      mensajeSinResultados.textContent =
-        "No se encontraron conceptos que coincidan con tu búsqueda.";
-
-      mensajeSinResultados.hidden = true;
-
-      glosario.insertAdjacentElement(
-        "afterend",
-        mensajeSinResultados
-      );
-    }
-
-    function normalizarTexto(texto) {
-      return texto
-        .toLocaleLowerCase("es")
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .trim();
-    }
-
-    buscador.addEventListener("input", () => {
-      const consulta = normalizarTexto(buscador.value);
-      let visibles = 0;
-
-      conceptos.forEach((concepto) => {
-        const texto = normalizarTexto(concepto.textContent);
-        const coincide = texto.includes(consulta);
-
-        concepto.hidden = !coincide;
-
-        if (coincide) {
-          visibles++;
-        }
-      });
-
-      mensajeSinResultados.hidden = visibles > 0;
-    });
-  }
-
-
-  // ========================================================
-  // 4. COMPROBACIÓN DE LAS 28 IMÁGENES
-  // ========================================================
-
-  const imagenesGaleria = document.querySelectorAll(
-    "#galeria-imagenes img"
-  );
-
-  imagenesGaleria.forEach((imagen) => {
-
-    imagen.addEventListener("error", () => {
-      imagen.classList.add("imagen-no-disponible");
-      imagen.dataset.errorImagen = "true";
-
-      /*
-        No ocultamos automáticamente las fotografías
-        que fallan: así es más fácil detectar qué archivo
-        falta o qué nombre debe corregirse en GitHub.
-      */
-    });
-
-    imagen.addEventListener("load", () => {
-      imagen.classList.remove("imagen-no-disponible");
-      imagen.dataset.errorImagen = "false";
-    });
-
   });
 
-
-  // ========================================================
-  // 5. AÑO ACTUAL, SI EXISTE EL ELEMENTO
-  // ========================================================
-
-  const anioActual = document.getElementById("anio-actual");
-
-  if (anioActual) {
-    anioActual.textContent = String(
-      new Date().getFullYear()
-    );
+  if (prevButton) {
+    prevButton.addEventListener("click", () => {
+      renderPhase(currentPhase - 1);
+    });
   }
 
+  if (nextButton) {
+    nextButton.addEventListener("click", () => {
+      renderPhase(currentPhase + 1);
+    });
+  }
 
-  // ========================================================
-  // 6. REGISTRO DE INICIALIZACIÓN
-  // ========================================================
+  renderPhase(0);
 
-  console.info(
-    "Reloj Solar CBTis No. 4: funciones inicializadas."
+  // ----------------------------------------------
+  // 3. CONTROL DE LA SOMBRA DE LA LUNA PRINCIPAL
+  // ----------------------------------------------
+
+  if (moonShadow) {
+    moonShadow.style.background =
+      "linear-gradient(90deg, transparent 20%, #020511 100%)";
+  }
+
+  // ----------------------------------------------
+  // 4. NAVEGACIÓN SUAVE
+  // ----------------------------------------------
+
+  document.querySelectorAll('a[href^="#"]').forEach((link) => {
+    link.addEventListener("click", (event) => {
+      const targetId = link.getAttribute("href");
+
+      if (!targetId || targetId === "#") return;
+
+      const target = document.querySelector(targetId);
+
+      if (target) {
+        event.preventDefault();
+
+        target.scrollIntoView({
+          behavior: window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+          ).matches ? "auto" : "smooth",
+          block: "start"
+        });
+      }
+    });
+  });
+
+  // ----------------------------------------------
+  // 5. REVELAR SECCIONES AL DESPLAZARSE
+  // ----------------------------------------------
+
+  const sections = document.querySelectorAll(
+    ".fact-card, .story-copy, .story-visual, " +
+    ".phase-display, .phase-option, .mission-stats div"
   );
 
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.12
+    });
+
+    sections.forEach((section) => {
+      section.classList.add("reveal");
+      observer.observe(section);
+    });
+  }
+
+  console.info("LUNAR: experiencia astronómica iniciada.");
 });
+     
