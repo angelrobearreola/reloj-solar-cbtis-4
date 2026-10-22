@@ -1068,3 +1068,177 @@ body {
   }
 }
 
+/* =====================================================
+   CENTRADO GLOBAL FORZADO
+   RELOJ SOLAR · CBTis No. 4
+   Pegar AL FINAL de style.css
+   ===================================================== */
+
+/* 1. Centrado general */
+body {
+  text-align: center !important;
+}
+
+/* 2. Centrar los encabezados y textos */
+h1, h2, h3, h4, h5, h6,
+p, figcaption, blockquote,
+.introduccion,
+.portada-descripcion,
+.evento-contenido,
+.ciencia-texto,
+.tarjeta,
+.concepto,
+.simulador-controles,
+.panel-gnomon,
+.cita-ciencia {
+  text-align: center !important;
+}
+
+/* 3. Centrar contenedores principales */
+.portada,
+.portada-contenido,
+.portada-visual,
+.seccion,
+.encabezado-seccion,
+.rejilla-proyecto,
+.ciencia-grid,
+.simulador,
+.simulador-contenido,
+.simulador-controles,
+.linea-tiempo,
+.evento-historico,
+.galeria,
+.glosario-lista,
+.cierre,
+.pie {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 4. Centrar títulos y descripciones */
+.encabezado-seccion {
+  justify-items: center;
+}
+
+.encabezado-seccion .introduccion,
+.portada-descripcion,
+.evento-contenido p,
+.cierre > p {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 5. Centrar botones y grupos de botones */
+.portada-botones {
+  justify-content: center;
+}
+
+.boton {
+  text-align: center;
+}
+
+/* 6. Centrar datos y elementos decorativos */
+.datos-portada {
+  justify-content: center;
+}
+
+.etiqueta,
+.enlace-flecha,
+.franja,
+.galeria-cabecera {
+  justify-content: center;
+}
+
+/* 7. Centrar las imágenes dentro de sus marcos */
+.marco-foto-portada img,
+.foto-tarjeta img,
+.ciencia-imagen img,
+.evento-imagen img,
+.galeria-elemento img,
+.panel-gnomon > img,
+.foto-control {
+  object-position: center center;
+}
+
+/* 8. Centrar el contenido de las tarjetas */
+.ciencia-card {
+  text-align: center !important;
+}
+
+.ciencia-texto {
+  align-self: center;
+}
+
+.concepto {
+  align-items: center;
+}
+
+.concepto > span {
+  flex-shrink: 0;
+}
+
+/* 9. Centrar buscador y controles */
+.buscador {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.simulador-controles label {
+  text-align: center;
+}
+
+/* 10. Centrar navegación en escritorio */
+@media (min-width: 781px) {
+  .encabezado {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .navegacion {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+/* 11. Centrar el pie de página */
+.pie {
+  justify-items: center;
+  text-align: center !important;
+}
+
+.pie > a:last-of-type {
+  justify-self: center;
+}
+
+.pie .pie-final {
+  text-align: center !important;
+}
+
+/* 12. Ajustes para móviles */
+@media (max-width: 780px) {
+  .portada-contenido,
+  .portada-visual,
+  .encabezado-seccion,
+  .evento-contenido,
+  .ciencia-texto {
+    text-align: center !important;
+  }
+
+  .portada-botones,
+  .datos-portada {
+    justify-content: center;
+  }
+
+  .evento-contenido {
+    padding-left: 0;
+  }
+
+  .linea-tiempo::before,
+  .evento-contenido::before {
+    display: none;
+  }
+
+  .pie {
+    justify-items: center;
+  }
+}
